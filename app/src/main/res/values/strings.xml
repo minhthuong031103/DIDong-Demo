@@ -7,4 +7,11 @@
     <string name="sign_in">Sign in</string>
     <string name="sign_up">Sign up</string>
     <string name="by_sign_in_or_sign_up_you_agree_to_our_terms_of_service_and_privac_y_policy">By sign in or sign up, you agree to our Terms of Service and Privac y Policy</string>
+    <string name="continue_text">Continue</string>
+    <string name="phone_number">Phone number</string>
+    <string name="facebook">Facebook</string>
+    <string name="google">Google</string>
+    <string name="enter_username">Enter Username</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
 </resources>
