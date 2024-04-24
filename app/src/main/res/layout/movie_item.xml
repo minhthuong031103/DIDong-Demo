@@ -2,6 +2,8 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_margin="8dp"
+
     xmlns:app="http://schemas.android.com/apk/res-auto"
 
     app:cardCornerRadius="15dp">
@@ -11,6 +13,7 @@
         android:orientation="vertical"
         android:background="@color/black"
         android:gravity="center_horizontal"
+        android:paddingBottom="4dp"
         >
         <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
@@ -28,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Avatar 2: The Way of Water"
-            android:textSize="28dp"
+            android:textSize="24dp"
             android:textColor="@color/yello_theme"
             android:textStyle="bold"
             android:gravity="center"

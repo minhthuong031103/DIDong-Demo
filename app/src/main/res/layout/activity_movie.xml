@@ -21,6 +21,7 @@
             android:layout_gravity="center"
             app:cardCornerRadius="12dp">
             <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tlMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:tabBackground="@drawable/tab_color_selector"
@@ -42,19 +43,13 @@
         </com.google.android.material.tabs.TabLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <ScrollView
+        <FrameLayout
+            android:id="@+id/flMovie"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fillViewport="true"
             >
-            <androidx.recyclerview.widget.RecyclerView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+        </FrameLayout>
 
-            </androidx.recyclerview.widget.RecyclerView>
-
-        </ScrollView>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
