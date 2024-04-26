@@ -103,4 +103,7 @@
         "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
         "when a user tries to pick up one of cards.\n\n"
     </string>
+    <string name="sample_storyline">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality.</string>
+    <string name="see_more">𝗦𝗲𝗲 𝗺𝗼𝗿𝗲</string>
+    <string name="see_less"> 𝗦𝗲𝗲 𝗹𝗲𝘀𝘀</string>
 </resources>

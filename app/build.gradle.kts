@@ -42,5 +42,8 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
 
     implementation("androidx.fragment:fragment:1.6.2")
-
+    implementation("com.github.FlyingPumba:SimpleRatingBar:v0.1.5")
+    implementation("com.borjabravo:readmoretextview:2.1.0")
+    implementation("de.hdodenhof:circleimageview:3.1.0")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
 }
