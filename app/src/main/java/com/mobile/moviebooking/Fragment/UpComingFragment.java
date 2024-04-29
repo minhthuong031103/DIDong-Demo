@@ -44,7 +44,7 @@ public class UpComingFragment extends Fragment {
         listMovie.add(movie2);
 
 
-        movieAdapter=new MovieAdapter(getContext());
+        movieAdapter =new MovieAdapter(getContext());
         GridLayoutManager gridLayoutManager=new GridLayoutManager(getContext(), 2);
         recyclerView.setLayoutManager(gridLayoutManager);
         movieAdapter.setData(listMovie);
