@@ -1,5 +1,6 @@
 package com.mobile.moviebooking.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.activity.EdgeToEdge;
@@ -10,6 +11,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.mobile.moviebooking.Adapter.CelebAdapter;
 import com.mobile.moviebooking.Entity.Celeb;
 import com.mobile.moviebooking.R;
@@ -22,6 +24,7 @@ public class MovieDetail extends AppCompatActivity {
     RecyclerView directorRecyclerView, actorRecyclerView;
     List<Celeb> directorList = new ArrayList<>();
     List<Celeb> actorList = new ArrayList<>();
+    ExtendedFloatingActionButton bookingBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,11 @@ public class MovieDetail extends AppCompatActivity {
         loadDirector();
         loadActor();
 
+        bookingBtn = findViewById(R.id.btn);
+        bookingBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MovieDetail.this, SelectShowtime.class);
+            startActivity(intent);
+        });
     }
 
     private void loadDirector() {

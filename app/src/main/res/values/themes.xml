@@ -17,4 +17,9 @@
         <item name="colorControlNormal">@color/lightGrey</item>
         <item name="colorControlActivated">@color/duskYellow</item>
     </style>
+    <style name="searchView" parent="Widget.AppCompat.SearchView" >
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/bh_text_white</item>
+        <item name="android:textColorHint">@color/bh_text_hint</item>
+    </style>
 </resources>
