@@ -1,26 +1,19 @@
 package com.mobile.moviebooking.Activity;
 
-import static java.lang.Math.sqrt;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
-import android.media.Image;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedDispatcher;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
@@ -29,14 +22,12 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.mobile.moviebooking.Adapter.SeatAdapter;
-import com.mobile.moviebooking.CustomLayout.ZoomView;
 import com.mobile.moviebooking.Entity.Seat;
 import com.mobile.moviebooking.R;
 import com.otaliastudios.zoom.ZoomLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class SelectSeat extends AppCompatActivity {
     private GridView seatsGridView;
@@ -49,6 +40,7 @@ public class SelectSeat extends AppCompatActivity {
     private TextView total;
     private TextView selectedSeats;
     private int price = 50000;
+    private int totalPayment = 0;
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +64,11 @@ public class SelectSeat extends AppCompatActivity {
 
         ctnBtn.setClickable(false);
 
-        Log.d("test", "" + getIntent().getIntExtra("showtimeId", -1));
+        Intent intent = new Intent(this, SelectFood.class);
+        ctnBtn.setOnClickListener(v -> {
+            intent.putExtra("totalPayment", totalPayment);
+            startActivity(intent);
+        });
     }
 
     private void findViewById() {
@@ -130,14 +126,12 @@ public class SelectSeat extends AppCompatActivity {
                 selectedSeat.append(seat.getRow()).append(seat.getSeatNumber()).append(", ");
             }
         }
+        totalPayment = totalSeat * price;
         if (totalSeat > 0) {
             selectedSeat = new StringBuilder(selectedSeat.substring(0, selectedSeat.length() - 2));
             ctnBtn.setClickable(true);
             ctnBtn.setBackgroundColor(getResources().getColor(R.color.bg_enabled_btn));
             ctnBtn.setTextColor(getResources().getColor(R.color.txt_enabled_btn));
-            ctnBtn.setOnClickListener(v -> {
-                Toast.makeText(this, "Continue", Toast.LENGTH_SHORT).show();
-            });
         } else {
             ctnBtn.setBackgroundColor(getResources().getColor(R.color.bg_disabled_btn));
             ctnBtn.setTextColor(getResources().getColor(R.color.txt_disabled_btn));
@@ -145,7 +139,8 @@ public class SelectSeat extends AppCompatActivity {
         }
 
         selectedSeats.setText( selectedSeat + " (" + totalSeat + ")");
-        total.setText(numberToVND(totalSeat * price));
+
+        total.setText(numberToVND(totalPayment));
     }
 
     public int convertDpToPixels(float dp, Context context){
@@ -172,6 +167,6 @@ public class SelectSeat extends AppCompatActivity {
     }
 
     private String numberToVND(int number) {
-        return String.format("%,d", number).replace(',', '.') + " VND";
+        return String.format("%,d", number).replace(',', '.') + " VNĐ";
     }
 }

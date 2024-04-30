@@ -40,7 +40,7 @@
                 android:layout_height="56dp"
                 android:layout_gravity="center"
                 android:paddingTop="10dp"
-                android:text="Select seat"
+                android:text="Select Seat"
                 android:textColor="#E3E3E3"
                 android:textSize="20sp"
                 android:textStyle="bold"

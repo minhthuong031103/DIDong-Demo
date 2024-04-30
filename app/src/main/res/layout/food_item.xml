@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    android:backgroundTint="#313131">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:layout_marginVertical="16dp"
+            android:id="@+id/cuscart_k"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            app:cardCornerRadius="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginLeft="16dp">
+
+            <ImageView
+                android:id="@+id/cuscart_imgfood"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:scaleType="fitXY"/>
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/cuscart_k"
+            android:fontFamily="@font/sfpro_medium"
+            android:gravity="center"
+            android:text="COMBO PARTY 2 NGĂN"
+            android:textColor="#F5F5F5"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/cuscart_k"
+            app:layout_constraintTop_toTopOf="@+id/cuscart_k" />
+
+        <TextView
+            android:layout_marginTop="6dp"
+            android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:maxWidth="250dp"
+            android:layout_height="wrap_content"
+            android:minHeight="36dp"
+            android:gravity="center"
+            android:text="4 Coke 22oz - V + 2 Bắp 2 Ngăn 64OZ PM + CARAMEL"
+            android:textColor="#F5F5F5"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="@+id/name"
+            app:layout_constraintStart_toStartOf="@+id/name"
+            app:layout_constraintTop_toBottomOf="@+id/name" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/description"
+            android:layout_marginTop="16dp"
+            android:layout_toEndOf="@id/cuscart_k"
+            android:gravity="center"
+            android:text="249.000 VNĐ"
+            android:textColor="@color/yello_theme"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@+id/cuscart_k"
+            app:layout_constraintEnd_toStartOf="@+id/imageView2"
+            app:layout_constraintStart_toEndOf="@+id/cuscart_k"
+            app:layout_constraintTop_toBottomOf="@+id/description" />
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="32dp"
+            android:background="@drawable/bh_cus_minusbtn"
+            android:paddingHorizontal="3dp"
+            android:src="@drawable/minus_svgrepo_com"
+            app:layout_constraintBottom_toBottomOf="@+id/price"
+            app:layout_constraintEnd_toStartOf="@+id/quantity"
+            app:layout_constraintTop_toTopOf="@+id/price" />
+
+        <TextView
+            android:id="@+id/quantity"
+            android:layout_width="32dp"
+            android:layout_height="28dp"
+            android:background="#E8E9F4"
+            android:paddingTop="3dp"
+            android:text="11"
+            android:textAlignment="center"
+            android:textColor="@color/date_black"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:flow_verticalAlign="center"
+            app:layout_constraintBottom_toBottomOf="@+id/imageView2"
+            app:layout_constraintEnd_toStartOf="@+id/imageView3"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@drawable/bh_cus_plusbtn"
+            android:paddingHorizontal="3dp"
+            android:src="@drawable/round_add_24"
+            app:layout_constraintBottom_toBottomOf="@+id/quantity"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/quantity"
+            android:layout_marginRight="28dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</com.google.android.material.card.MaterialCardView>

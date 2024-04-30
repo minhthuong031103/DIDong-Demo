@@ -15,6 +15,9 @@
         android:theme="@style/Theme.MovieBooking"
         tools:targetApi="31">
         <activity
+            android:name=".Activity.SelectFood"
+            android:exported="false" />
+        <activity
             android:name=".Activity.SelectSeat"
             android:exported="false" />
         <activity
@@ -43,7 +46,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.AddUserName"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
