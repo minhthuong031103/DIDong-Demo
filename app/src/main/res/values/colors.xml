@@ -17,4 +17,14 @@
     <color name="card_date_black">#161616</color>
     <color name="bh_text_white">#F2F2F2</color>
     <color name="bh_text_hint">#5C5C5C</color>
+    <color name="bg_seat_available">#1C1C1C</color>
+    <color name="bg_seat_selected">#FCC434</color>
+    <color name="bg_seat_reserved">#261D08</color>
+    <color name="txt_seat_available">#BFBFBF</color>
+    <color name="txt_seat_selected">#000000</color>
+    <color name="txt_seat_reserved">#FCC434</color>
+    <color name="bg_disabled_btn">#BFBFBF</color>
+    <color name="bg_enabled_btn">#FCC434</color>
+    <color name="txt_disabled_btn">#5C5C5C</color>
+    <color name="txt_enabled_btn">#000000</color>
 </resources>

@@ -2,6 +2,7 @@ package com.mobile.moviebooking.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MovieDetail extends AppCompatActivity {
-
+    private ImageView backBtn;
     RecyclerView directorRecyclerView, actorRecyclerView;
     List<Celeb> directorList = new ArrayList<>();
     List<Celeb> actorList = new ArrayList<>();
@@ -36,6 +37,8 @@ public class MovieDetail extends AppCompatActivity {
             return insets;
         });
 
+        findViewById();
+
         loadDirector();
         loadActor();
 
@@ -44,6 +47,15 @@ public class MovieDetail extends AppCompatActivity {
             Intent intent = new Intent(MovieDetail.this, SelectShowtime.class);
             startActivity(intent);
         });
+
+        backBtn.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
+    }
+
+    private void findViewById() {
+        backBtn = findViewById(R.id.backBtn);
+        directorRecyclerView = findViewById(R.id.directorRecyclerView);
     }
 
     private void loadDirector() {
@@ -52,7 +64,7 @@ public class MovieDetail extends AppCompatActivity {
         directorList.add(new Celeb("Christopher", "Nolan","https://firebasestorage.googleapis.com/v0/b/crescentmoon-a4dbd.appspot.com/o/James_Cameron_by_Gage_Skidmore.jpg?alt=media&token=12465718-9713-4279-ac61-769ed85a3697","https://www.imdb.com/name/nm0634240/"));
         directorList.add(new Celeb("Steven", "Spielberg","https://firebasestorage.googleapis.com/v0/b/crescentmoon-a4dbd.appspot.com/o/James_Cameron_by_Gage_Skidmore.jpg?alt=media&token=12465718-9713-4279-ac61-769ed85a3697","https://www.imdb.com/name/nm0000229/"));
         directorList.add(new Celeb("Quentin", "Tarantino","https://firebasestorage.googleapis.com/v0/b/crescentmoon-a4dbd.appspot.com/o/James_Cameron_by_Gage_Skidmore.jpg?alt=media&token=12465718-9713-4279-ac61-769ed85a3697","https://www.imdb.com/name/nm0000233/"));
-        directorRecyclerView = findViewById(R.id.directorRecyclerView);
+
         directorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         CelebAdapter directorAdapter = new CelebAdapter(this, directorList);
         directorRecyclerView.setAdapter(directorAdapter);

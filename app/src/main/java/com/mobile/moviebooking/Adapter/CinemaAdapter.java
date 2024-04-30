@@ -3,6 +3,7 @@ package com.mobile.moviebooking.Adapter;
 import static android.content.ContentValues.TAG;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Looper;
 import android.util.Log;
@@ -35,11 +36,13 @@ public class CinemaAdapter extends BaseAdapter {
     private int layout;
     private List<Cinema> list;
     private List<ShowTimeAdapter> showTimeAdapters = new ArrayList<>();
+    private Intent intent;
 
-    public CinemaAdapter(Context context, int layout, List<Cinema> list) {
+    public CinemaAdapter(Context context, int layout, List<Cinema> list, Intent intent) {
         this.context = context;
         this.layout = layout;
         this.list = list;
+        this.intent = intent;
     }
     @Override
     public int getCount() {
@@ -127,6 +130,7 @@ public class CinemaAdapter extends BaseAdapter {
                                 }
                             });
                         }).start();
+                        intent.putExtra("showtimeId", showtimes.get(position1).getId());
                     });
                 }
             }

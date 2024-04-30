@@ -1,6 +1,7 @@
 package com.mobile.moviebooking.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -62,7 +63,8 @@ public class ShowTimeAdapter extends BaseAdapter {
         }
 
         Showtime showtime = list.get(position);
-        String time = new SimpleDateFormat("hh:mm", Locale.getDefault()).format(showtime.getShowtime());
+        String time = new SimpleDateFormat("HH:mm", Locale.getDefault()).format(showtime.getShowtime());
+        Log.d("test", "getView: " + time + " " + showtime.getShowtime());
         holder.time.setText(time);
 
         if (selectedPosition == position) {

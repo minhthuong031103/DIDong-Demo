@@ -46,4 +46,5 @@ dependencies {
     implementation("com.borjabravo:readmoretextview:2.1.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.otaliastudios:zoomlayout:1.9.0")
 }
