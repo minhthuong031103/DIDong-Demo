@@ -1,7 +1,9 @@
 package com.mobile.moviebooking.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,6 +20,7 @@ import com.mobile.moviebooking.Entity.Celeb;
 import com.mobile.moviebooking.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MovieDetail extends AppCompatActivity {
@@ -26,6 +29,18 @@ public class MovieDetail extends AppCompatActivity {
     List<Celeb> directorList = new ArrayList<>();
     List<Celeb> actorList = new ArrayList<>();
     ExtendedFloatingActionButton bookingBtn;
+    int movieId;
+    String movieName;
+    String moviePoster;
+    String movieTrailer;
+    String movieDescription;
+    String movieRating;
+    int numberOfRatings;
+    int movieDuration;
+    String movieGenre;
+    Date movieReleaseDate;
+    SharedPreferences sharedPreferences;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +53,9 @@ public class MovieDetail extends AppCompatActivity {
         });
 
         findViewById();
+        sharedPreferences = getSharedPreferences("movieInfo", MODE_PRIVATE);
 
+        loadMovieDetails();
         loadDirector();
         loadActor();
 
@@ -46,11 +63,23 @@ public class MovieDetail extends AppCompatActivity {
         bookingBtn.setOnClickListener(v -> {
             Intent intent = new Intent(MovieDetail.this, SelectShowtime.class);
             startActivity(intent);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putInt("movieId", movieId);
+            editor.putString("movieName", movieName);
+            editor.putString("moviePoster", moviePoster);
+            editor.apply();
         });
 
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
         });
+    }
+
+    private void loadMovieDetails() {
+        movieId = 2;
+        movieName = "Avenger: Endgame";
+        moviePoster = "https://upload.wikimedia.org/wikipedia/vi/2/2d/Avengers_Endgame_bia_teaser.jpg";
     }
 
     private void findViewById() {
@@ -79,5 +108,11 @@ public class MovieDetail extends AppCompatActivity {
         actorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         CelebAdapter actorAdapter = new CelebAdapter(this, actorList);
         actorRecyclerView.setAdapter(actorAdapter);
+    }
+
+    @Override
+    protected void onDestroy() {
+        sharedPreferences.edit().clear().apply();
+        super.onDestroy();
     }
 }

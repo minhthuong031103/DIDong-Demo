@@ -1,5 +1,6 @@
 package com.mobile.moviebooking.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -52,7 +53,9 @@ public class SelectFood extends AppCompatActivity {
         });
 
         ctnBtn.setOnClickListener(v -> {
-            Toast.makeText(this, "GO GO", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(SelectFood.this, Payment.class);
+            intent.putExtra("totalPayment", totalPayment);
+            startActivity(intent);
         });
     }
 

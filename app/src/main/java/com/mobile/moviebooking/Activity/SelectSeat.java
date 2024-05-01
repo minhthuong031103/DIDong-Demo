@@ -91,7 +91,7 @@ public class SelectSeat extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         ViewGroup.LayoutParams layoutParams  = seatsGridView.getLayoutParams();
         layoutParams.width = width;
-        layoutParams.height = convertDpToPixels(numRow * 36, this) ;
+        layoutParams.height = convertDpToPixels(numRow * 36 + 8, this) ;
         seatsGridView.setLayoutParams(layoutParams);
 
         ZoomLayout zoomLayout = findViewById(R.id.zoomLayout);
