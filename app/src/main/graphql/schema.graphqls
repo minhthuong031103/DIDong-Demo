@@ -1,0 +1,1332 @@
+# The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+scalar JSON
+
+# A date-time string at UTC, such as 2007-12-03T10:15:30Z, compliant with the `date-time` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+scalar DateTime
+
+# A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
+scalar Date
+
+# The `Upload` scalar type represents a file upload.
+scalar Upload
+
+type Pagination {
+  total: Int!
+  page: Int!
+  pageSize: Int!
+  pageCount: Int!
+}
+
+type ResponseCollectionMeta {
+  pagination: Pagination!
+}
+
+enum PublicationState {
+  LIVE
+  PREVIEW
+}
+
+input IDFilterInput {
+  and: [ID]
+  or: [ID]
+  not: IDFilterInput
+  eq: ID
+  eqi: ID
+  ne: ID
+  nei: ID
+  startsWith: ID
+  endsWith: ID
+  contains: ID
+  notContains: ID
+  containsi: ID
+  notContainsi: ID
+  gt: ID
+  gte: ID
+  lt: ID
+  lte: ID
+  null: Boolean
+  notNull: Boolean
+  in: [ID]
+  notIn: [ID]
+  between: [ID]
+}
+
+input BooleanFilterInput {
+  and: [Boolean]
+  or: [Boolean]
+  not: BooleanFilterInput
+  eq: Boolean
+  eqi: Boolean
+  ne: Boolean
+  nei: Boolean
+  startsWith: Boolean
+  endsWith: Boolean
+  contains: Boolean
+  notContains: Boolean
+  containsi: Boolean
+  notContainsi: Boolean
+  gt: Boolean
+  gte: Boolean
+  lt: Boolean
+  lte: Boolean
+  null: Boolean
+  notNull: Boolean
+  in: [Boolean]
+  notIn: [Boolean]
+  between: [Boolean]
+}
+
+input StringFilterInput {
+  and: [String]
+  or: [String]
+  not: StringFilterInput
+  eq: String
+  eqi: String
+  ne: String
+  nei: String
+  startsWith: String
+  endsWith: String
+  contains: String
+  notContains: String
+  containsi: String
+  notContainsi: String
+  gt: String
+  gte: String
+  lt: String
+  lte: String
+  null: Boolean
+  notNull: Boolean
+  in: [String]
+  notIn: [String]
+  between: [String]
+}
+
+input IntFilterInput {
+  and: [Int]
+  or: [Int]
+  not: IntFilterInput
+  eq: Int
+  eqi: Int
+  ne: Int
+  nei: Int
+  startsWith: Int
+  endsWith: Int
+  contains: Int
+  notContains: Int
+  containsi: Int
+  notContainsi: Int
+  gt: Int
+  gte: Int
+  lt: Int
+  lte: Int
+  null: Boolean
+  notNull: Boolean
+  in: [Int]
+  notIn: [Int]
+  between: [Int]
+}
+
+input FloatFilterInput {
+  and: [Float]
+  or: [Float]
+  not: FloatFilterInput
+  eq: Float
+  eqi: Float
+  ne: Float
+  nei: Float
+  startsWith: Float
+  endsWith: Float
+  contains: Float
+  notContains: Float
+  containsi: Float
+  notContainsi: Float
+  gt: Float
+  gte: Float
+  lt: Float
+  lte: Float
+  null: Boolean
+  notNull: Boolean
+  in: [Float]
+  notIn: [Float]
+  between: [Float]
+}
+
+input DateFilterInput {
+  and: [Date]
+  or: [Date]
+  not: DateFilterInput
+  eq: Date
+  eqi: Date
+  ne: Date
+  nei: Date
+  startsWith: Date
+  endsWith: Date
+  contains: Date
+  notContains: Date
+  containsi: Date
+  notContainsi: Date
+  gt: Date
+  gte: Date
+  lt: Date
+  lte: Date
+  null: Boolean
+  notNull: Boolean
+  in: [Date]
+  notIn: [Date]
+  between: [Date]
+}
+
+input DateTimeFilterInput {
+  and: [DateTime]
+  or: [DateTime]
+  not: DateTimeFilterInput
+  eq: DateTime
+  eqi: DateTime
+  ne: DateTime
+  nei: DateTime
+  startsWith: DateTime
+  endsWith: DateTime
+  contains: DateTime
+  notContains: DateTime
+  containsi: DateTime
+  notContainsi: DateTime
+  gt: DateTime
+  gte: DateTime
+  lt: DateTime
+  lte: DateTime
+  null: Boolean
+  notNull: Boolean
+  in: [DateTime]
+  notIn: [DateTime]
+  between: [DateTime]
+}
+
+input JSONFilterInput {
+  and: [JSON]
+  or: [JSON]
+  not: JSONFilterInput
+  eq: JSON
+  eqi: JSON
+  ne: JSON
+  nei: JSON
+  startsWith: JSON
+  endsWith: JSON
+  contains: JSON
+  notContains: JSON
+  containsi: JSON
+  notContainsi: JSON
+  gt: JSON
+  gte: JSON
+  lt: JSON
+  lte: JSON
+  null: Boolean
+  notNull: Boolean
+  in: [JSON]
+  notIn: [JSON]
+  between: [JSON]
+}
+
+input UploadFileFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  alternativeText: StringFilterInput
+  caption: StringFilterInput
+  width: IntFilterInput
+  height: IntFilterInput
+  formats: JSONFilterInput
+  hash: StringFilterInput
+  ext: StringFilterInput
+  mime: StringFilterInput
+  size: FloatFilterInput
+  url: StringFilterInput
+  previewUrl: StringFilterInput
+  provider: StringFilterInput
+  provider_metadata: JSONFilterInput
+  folder: UploadFolderFiltersInput
+  folderPath: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [UploadFileFiltersInput]
+  or: [UploadFileFiltersInput]
+  not: UploadFileFiltersInput
+}
+
+input UploadFileInput {
+  name: String
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String
+  ext: String
+  mime: String
+  size: Float
+  url: String
+  previewUrl: String
+  provider: String
+  provider_metadata: JSON
+  folder: ID
+  folderPath: String
+}
+
+type UploadFile {
+  name: String!
+  alternativeText: String
+  caption: String
+  width: Int
+  height: Int
+  formats: JSON
+  hash: String!
+  ext: String
+  mime: String!
+  size: Float!
+  url: String!
+  previewUrl: String
+  provider: String!
+  provider_metadata: JSON
+  related: [GenericMorph]
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UploadFileEntity {
+  id: ID
+  attributes: UploadFile
+}
+
+type UploadFileEntityResponse {
+  data: UploadFileEntity
+}
+
+type UploadFileEntityResponseCollection {
+  data: [UploadFileEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UploadFileRelationResponseCollection {
+  data: [UploadFileEntity!]!
+}
+
+input UploadFolderFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  pathId: IntFilterInput
+  parent: UploadFolderFiltersInput
+  children: UploadFolderFiltersInput
+  files: UploadFileFiltersInput
+  path: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [UploadFolderFiltersInput]
+  or: [UploadFolderFiltersInput]
+  not: UploadFolderFiltersInput
+}
+
+input UploadFolderInput {
+  name: String
+  pathId: Int
+  parent: ID
+  children: [ID]
+  files: [ID]
+  path: String
+}
+
+type UploadFolder {
+  name: String!
+  pathId: Int!
+  parent: UploadFolderEntityResponse
+  children(
+    filters: UploadFolderFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFolderRelationResponseCollection
+  files(
+    filters: UploadFileFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFileRelationResponseCollection
+  path: String!
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UploadFolderEntity {
+  id: ID
+  attributes: UploadFolder
+}
+
+type UploadFolderEntityResponse {
+  data: UploadFolderEntity
+}
+
+type UploadFolderEntityResponseCollection {
+  data: [UploadFolderEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UploadFolderRelationResponseCollection {
+  data: [UploadFolderEntity!]!
+}
+
+input I18NLocaleFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  code: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [I18NLocaleFiltersInput]
+  or: [I18NLocaleFiltersInput]
+  not: I18NLocaleFiltersInput
+}
+
+type I18NLocale {
+  name: String
+  code: String
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type I18NLocaleEntity {
+  id: ID
+  attributes: I18NLocale
+}
+
+type I18NLocaleEntityResponse {
+  data: I18NLocaleEntity
+}
+
+type I18NLocaleEntityResponseCollection {
+  data: [I18NLocaleEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input UsersPermissionsPermissionFiltersInput {
+  id: IDFilterInput
+  action: StringFilterInput
+  role: UsersPermissionsRoleFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [UsersPermissionsPermissionFiltersInput]
+  or: [UsersPermissionsPermissionFiltersInput]
+  not: UsersPermissionsPermissionFiltersInput
+}
+
+type UsersPermissionsPermission {
+  action: String!
+  role: UsersPermissionsRoleEntityResponse
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UsersPermissionsPermissionEntity {
+  id: ID
+  attributes: UsersPermissionsPermission
+}
+
+type UsersPermissionsPermissionRelationResponseCollection {
+  data: [UsersPermissionsPermissionEntity!]!
+}
+
+input UsersPermissionsRoleFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  description: StringFilterInput
+  type: StringFilterInput
+  permissions: UsersPermissionsPermissionFiltersInput
+  users: UsersPermissionsUserFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [UsersPermissionsRoleFiltersInput]
+  or: [UsersPermissionsRoleFiltersInput]
+  not: UsersPermissionsRoleFiltersInput
+}
+
+input UsersPermissionsRoleInput {
+  name: String
+  description: String
+  type: String
+  permissions: [ID]
+  users: [ID]
+}
+
+type UsersPermissionsRole {
+  name: String!
+  description: String
+  type: String
+  permissions(
+    filters: UsersPermissionsPermissionFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsPermissionRelationResponseCollection
+  users(
+    filters: UsersPermissionsUserFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsUserRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UsersPermissionsRoleEntity {
+  id: ID
+  attributes: UsersPermissionsRole
+}
+
+type UsersPermissionsRoleEntityResponse {
+  data: UsersPermissionsRoleEntity
+}
+
+type UsersPermissionsRoleEntityResponseCollection {
+  data: [UsersPermissionsRoleEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+input UsersPermissionsUserFiltersInput {
+  id: IDFilterInput
+  username: StringFilterInput
+  email: StringFilterInput
+  provider: StringFilterInput
+  password: StringFilterInput
+  resetPasswordToken: StringFilterInput
+  confirmationToken: StringFilterInput
+  confirmed: BooleanFilterInput
+  blocked: BooleanFilterInput
+  role: UsersPermissionsRoleFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [UsersPermissionsUserFiltersInput]
+  or: [UsersPermissionsUserFiltersInput]
+  not: UsersPermissionsUserFiltersInput
+}
+
+input UsersPermissionsUserInput {
+  username: String
+  email: String
+  provider: String
+  password: String
+  resetPasswordToken: String
+  confirmationToken: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: ID
+}
+
+type UsersPermissionsUser {
+  username: String!
+  email: String!
+  provider: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsRoleEntityResponse
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type UsersPermissionsUserEntity {
+  id: ID
+  attributes: UsersPermissionsUser
+}
+
+type UsersPermissionsUserEntityResponse {
+  data: UsersPermissionsUserEntity
+}
+
+type UsersPermissionsUserEntityResponseCollection {
+  data: [UsersPermissionsUserEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type UsersPermissionsUserRelationResponseCollection {
+  data: [UsersPermissionsUserEntity!]!
+}
+
+input ActorFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  movies: MovieFiltersInput
+  infoUrl: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [ActorFiltersInput]
+  or: [ActorFiltersInput]
+  not: ActorFiltersInput
+}
+
+input ActorInput {
+  name: String
+  avatar: ID
+  movies: [ID]
+  infoUrl: String
+  publishedAt: DateTime
+}
+
+type Actor {
+  name: String!
+  avatar: UploadFileEntityResponse
+  movies(
+    filters: MovieFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieRelationResponseCollection
+  infoUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type ActorEntity {
+  id: ID
+  attributes: Actor
+}
+
+type ActorEntityResponse {
+  data: ActorEntity
+}
+
+type ActorEntityResponseCollection {
+  data: [ActorEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type ActorRelationResponseCollection {
+  data: [ActorEntity!]!
+}
+
+input DirectorFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  movies: MovieFiltersInput
+  infoUrl: StringFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [DirectorFiltersInput]
+  or: [DirectorFiltersInput]
+  not: DirectorFiltersInput
+}
+
+input DirectorInput {
+  name: String
+  avatar: ID
+  movies: [ID]
+  infoUrl: String
+  publishedAt: DateTime
+}
+
+type Director {
+  name: String!
+  avatar: UploadFileEntityResponse
+  movies(
+    filters: MovieFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieRelationResponseCollection
+  infoUrl: String
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type DirectorEntity {
+  id: ID
+  attributes: Director
+}
+
+type DirectorEntityResponse {
+  data: DirectorEntity
+}
+
+type DirectorEntityResponseCollection {
+  data: [DirectorEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type DirectorRelationResponseCollection {
+  data: [DirectorEntity!]!
+}
+
+enum ENUM_MOVIE_LABEL {
+  P
+  T18
+  T16
+  T13
+  K
+  C
+}
+
+enum ENUM_MOVIE_LANGUAGE {
+  Tieng_Afrikaans
+  Tieng_Albania
+  Tieng_Amharic
+  Tieng_A_Rap
+  Tieng_Armenia
+  Tieng_Azerbaijan
+  Tieng_Basque
+  Tieng_Belarus
+  Tieng_Bengal
+  Tieng_Bosnia
+  Tieng_Bulgaria
+  Tieng_Catalan
+  Tieng_Cebuano
+  Tieng_Chichewa
+  Tieng_Corsica
+  Tieng_Croatia
+  Tieng_Czech
+  Tieng_Dan_Mach
+  Tieng_Duc
+  Tieng_Esperanto
+  Tieng_Estonia
+  Tieng_Farsi
+  Tieng_Phan_Lan
+  Tieng_Phap
+  Tieng_Frisian
+  Tieng_Galicia
+  Tieng_Gruzia
+  Tieng_Gujarati
+  Tieng_Haiti_Creole
+  Tieng_Hausa
+  Tieng_Hawaii
+  Tieng_Hebrew
+  Tieng_Hindi
+  Tieng_Hmong
+  Tieng_Hungary
+  Tieng_Iceland
+  Tieng_Igbo
+  Tieng_Indonesia
+  Tieng_Ireland
+  Tieng_Italia
+  Tieng_Java
+  Tieng_Kannada
+  Tieng_Kazakh
+  Tieng_Khmer
+  Tieng_Kinyarwanda
+  Tieng_Kurd
+  Tieng_Kyrgyz
+  Tieng_Lao
+  Tieng_Latin
+  Tieng_Latvia
+  Tieng_Litva
+  Tieng_Luxembourg
+  Tieng_Macedonia
+  Tieng_Malagasy
+  Tieng_Malay
+  Tieng_Malayalam
+  Tieng_Malta
+  Tieng_Maori
+  Tieng_Marathi
+  Tieng_Mong_Co
+  Tieng_Myanmar
+  Tieng_Nepal
+  Tieng_Na_Uy
+  Tieng_Odia
+  Tieng_Pashto
+  Tieng_Ba_Lan
+  Tieng_Bo_Dao_Nha
+  Tieng_Punjab
+  Tieng_Rumani
+  Tieng_Nga
+  Tieng_Samoa
+  Tieng_Scotland_Gaelic
+  Tieng_Serbia
+  Tieng_Sesotho
+  Tieng_Shona
+  Tieng_Sindhi
+  Tieng_Sinhala
+  Tieng_Slovak
+  Tieng_Slovenia
+  Tieng_Somali
+  Tieng_Tay_Ban_Nha
+  Tieng_Sundan
+  Tieng_Swahili
+  Tieng_Thuy_Dien
+  Tieng_Tagalog
+  Tieng_Tajik
+  Tieng_Tamil
+  Tieng_Tatar
+  Tieng_Telugu
+  Tieng_Thai
+  Tieng_Tho_Nhi_Ky
+  Tieng_Turkmen
+  Tieng_Uighur
+  Tieng_Ukraine
+  Tieng_Urdu
+  Tieng_Uzbek
+  Tieng_Viet
+  Tieng_Wales
+  Tieng_Xhosa
+  Tieng_Yiddish
+  Tieng_Yoruba
+  Tieng_Zulu
+}
+
+enum ENUM_MOVIE_COUNTRY {
+  Afghanistan
+  Ai_Cap
+  Albania
+  Algeria
+  Andorra
+  Angola
+  Antigua_va_Barbuda
+  A_Rap_Saudi
+  Argentina
+  Armenia
+  Australia
+  Ao
+  Azerbaijan
+  An_Do
+  Bahamas
+  Bahrain
+  Bangladesh
+  Barbados
+  Belarus
+  Belize
+  Benin
+  Bhutan
+  Bi
+  Bolivia
+  Bosna_va_Hercegovina
+  Botswana
+  Bo_Dao_Nha
+  Brazil
+  Brunei
+  Bulgaria
+  Burkina_Faso
+  Burundi
+  Cac_Tieu_Vuong_quoc_A_Rap_Thong_nhat
+  Cameroon
+  Campuchia
+  Canada
+  Cape_Verde
+  Chad
+  Chile
+  Colombia
+  Comoros
+  Cong_hoa_Congo
+  Cong_hoa_Dan_chu_Congo
+  Cong_hoa_Dominican
+  Cong_hoa_Sec
+  Cong_hoa_Trung_Phi
+  Costa_Rica
+  Croatia
+  Cuba
+  Djibouti
+  Dominica
+  Dan_Mach
+  Dong_Timor
+  Duc
+  Ecuador
+  El_Salvador
+  Eritrea
+  Estonia
+  Ethiopia
+  Fiji
+  Gabon
+  Gambia
+  Georgia
+  Ghana
+  Grenada
+  Guatemala
+  Guinea
+  Guinea_Bissau
+  Guinea_Xich_Dao
+  Guyana
+  Ha_Lan
+  Haiti
+  Han_Quoc
+  Hoa_Ky
+  Honduras
+  Hong_Kong
+  Hungary
+  Hy_Lap
+  Iceland
+  Indonesia
+  Iran
+  Iraq
+  Ireland
+  Israel
+  Jamaica
+  Jordan
+  Kazakhstan
+  Kenya
+  Kiribati
+  Kuwait
+  Kyrgyzstan
+  Lao
+  Latvia
+  Lesotho
+  Liban
+  Liberia
+  Libya
+  Liechtenstein
+  Lithuania
+  Luxembourg
+  Ma_roc
+  Madagascar
+  Malawi
+  Malaysia
+  Maldives
+  Mali
+  Malta
+  Marshall
+  Mauritania
+  Mauritius
+  Mexico
+  Micronesia
+  Moldova
+  Monaco
+  Mong_Co
+  Montenegro
+  Mozambique
+  Myanmar
+  Na_Uy
+  Nam_Phi
+  Nam_Sudan
+  Namibia
+  Nauru
+  Nepal
+  New_Zealand
+  Nga
+  Nhat_Ban
+  Nicaragua
+  Niger
+  Nigeria
+  Niue
+  Oman
+  Pakistan
+  Palau
+  Palestine
+  Panama
+  Papua_New_Guinea
+  Paraguay
+  Peru
+  Phap
+  Philippines
+  Qatar
+  Quan_dao_Cook
+  Quan_dao_Marshall
+  Quan_dao_Solomon
+  Rwanda
+  Saint_Kitts_va_Nevis
+  Saint_Lucia
+  Saint_Vincent_va_Grenadines
+  Samoa
+  San_Marino
+  Sao_Tome_va_Principe
+  Senegal
+  Serbia
+  Seychelles
+  Sierra_Leone
+  Singapore
+  Sip
+  Slovakia
+  Slovenia
+  Somalia
+  Sri_Lanka
+  Sudan
+  Suriname
+  Swaziland
+  Syria
+  Tajikistan
+  Tanzania
+  Tay_Ban_Nha
+  Thai_Lan
+  Tho_Nhi_Ky
+  Thuy_Dien
+  Thuy_Si
+  Togo
+  Tonga
+  Trieu_Tien
+  Trinidad_va_Tobago
+  Trung_Quoc
+  Tunisia
+  Turkmenistan
+  Tuvalu
+  Uc
+  Uganda
+  Ukraine
+  Uruguay
+  Uzbekistan
+  Vanuatu
+  Vatican
+  Venezuela
+  Viet_Nam
+  Yemen
+  Zambia
+  Zimbabwe
+}
+
+input MovieFiltersInput {
+  id: IDFilterInput
+  title: StringFilterInput
+  duration: IntFilterInput
+  description: StringFilterInput
+  release_date: DateFilterInput
+  actors: ActorFiltersInput
+  directors: DirectorFiltersInput
+  movie_genres: MovieGenreFiltersInput
+  is_showing: BooleanFilterInput
+  label: StringFilterInput
+  language: StringFilterInput
+  country: StringFilterInput
+  num_of_reviews: IntFilterInput
+  review: FloatFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [MovieFiltersInput]
+  or: [MovieFiltersInput]
+  not: MovieFiltersInput
+}
+
+input MovieInput {
+  title: String
+  duration: Int
+  description: String
+  release_date: Date
+  poster: ID
+  trailer: ID
+  actors: [ID]
+  directors: [ID]
+  movie_genres: [ID]
+  is_showing: Boolean
+  label: ENUM_MOVIE_LABEL
+  language: ENUM_MOVIE_LANGUAGE
+  country: ENUM_MOVIE_COUNTRY
+  num_of_reviews: Int
+  review: Float
+  publishedAt: DateTime
+}
+
+type Movie {
+  title: String
+  duration: Int
+  description: String
+  release_date: Date
+  poster: UploadFileEntityResponse
+  trailer: UploadFileEntityResponse
+  actors(
+    filters: ActorFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ActorRelationResponseCollection
+  directors(
+    filters: DirectorFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): DirectorRelationResponseCollection
+  movie_genres(
+    filters: MovieGenreFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieGenreRelationResponseCollection
+  is_showing: Boolean
+  label: ENUM_MOVIE_LABEL
+  language: ENUM_MOVIE_LANGUAGE
+  country: ENUM_MOVIE_COUNTRY
+  num_of_reviews: Int
+  review: Float
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type MovieEntity {
+  id: ID
+  attributes: Movie
+}
+
+type MovieEntityResponse {
+  data: MovieEntity
+}
+
+type MovieEntityResponseCollection {
+  data: [MovieEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type MovieRelationResponseCollection {
+  data: [MovieEntity!]!
+}
+
+input MovieGenreFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  movies: MovieFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [MovieGenreFiltersInput]
+  or: [MovieGenreFiltersInput]
+  not: MovieGenreFiltersInput
+}
+
+input MovieGenreInput {
+  name: String
+  movies: [ID]
+  publishedAt: DateTime
+}
+
+type MovieGenre {
+  name: String!
+  movies(
+    filters: MovieFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type MovieGenreEntity {
+  id: ID
+  attributes: MovieGenre
+}
+
+type MovieGenreEntityResponse {
+  data: MovieGenreEntity
+}
+
+type MovieGenreEntityResponseCollection {
+  data: [MovieGenreEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type MovieGenreRelationResponseCollection {
+  data: [MovieGenreEntity!]!
+}
+
+union GenericMorph =
+  UploadFile
+  | UploadFolder
+  | I18NLocale
+  | UsersPermissionsPermission
+  | UsersPermissionsRole
+  | UsersPermissionsUser
+  | Actor
+  | Director
+  | Movie
+  | MovieGenre
+
+input FileInfoInput {
+  name: String
+  alternativeText: String
+  caption: String
+}
+
+type UsersPermissionsMe {
+  id: ID!
+  username: String!
+  email: String
+  confirmed: Boolean
+  blocked: Boolean
+  role: UsersPermissionsMeRole
+}
+
+type UsersPermissionsMeRole {
+  id: ID!
+  name: String!
+  description: String
+  type: String
+}
+
+input UsersPermissionsRegisterInput {
+  username: String!
+  email: String!
+  password: String!
+}
+
+input UsersPermissionsLoginInput {
+  identifier: String!
+  password: String!
+  provider: String! = "local"
+}
+
+type UsersPermissionsPasswordPayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsLoginPayload {
+  jwt: String
+  user: UsersPermissionsMe!
+}
+
+type UsersPermissionsCreateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsUpdateRolePayload {
+  ok: Boolean!
+}
+
+type UsersPermissionsDeleteRolePayload {
+  ok: Boolean!
+}
+
+input PaginationArg {
+  page: Int
+  pageSize: Int
+  start: Int
+  limit: Int
+}
+
+type Query {
+  uploadFile(id: ID): UploadFileEntityResponse
+  uploadFiles(
+    filters: UploadFileFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFileEntityResponseCollection
+  uploadFolder(id: ID): UploadFolderEntityResponse
+  uploadFolders(
+    filters: UploadFolderFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UploadFolderEntityResponseCollection
+  i18NLocale(id: ID): I18NLocaleEntityResponse
+  i18NLocales(
+    filters: I18NLocaleFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): I18NLocaleEntityResponseCollection
+  usersPermissionsRole(id: ID): UsersPermissionsRoleEntityResponse
+  usersPermissionsRoles(
+    filters: UsersPermissionsRoleFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsRoleEntityResponseCollection
+  usersPermissionsUser(id: ID): UsersPermissionsUserEntityResponse
+  usersPermissionsUsers(
+    filters: UsersPermissionsUserFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): UsersPermissionsUserEntityResponseCollection
+  actor(id: ID): ActorEntityResponse
+  actors(
+    filters: ActorFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ActorEntityResponseCollection
+  director(id: ID): DirectorEntityResponse
+  directors(
+    filters: DirectorFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): DirectorEntityResponseCollection
+  movie(id: ID): MovieEntityResponse
+  movies(
+    filters: MovieFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieEntityResponseCollection
+  movieGenre(id: ID): MovieGenreEntityResponse
+  movieGenres(
+    filters: MovieGenreFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): MovieGenreEntityResponseCollection
+  me: UsersPermissionsMe
+}
+
+type Mutation {
+  createUploadFile(data: UploadFileInput!): UploadFileEntityResponse
+  updateUploadFile(id: ID!, data: UploadFileInput!): UploadFileEntityResponse
+  deleteUploadFile(id: ID!): UploadFileEntityResponse
+  createUploadFolder(data: UploadFolderInput!): UploadFolderEntityResponse
+  updateUploadFolder(
+    id: ID!
+    data: UploadFolderInput!
+  ): UploadFolderEntityResponse
+  deleteUploadFolder(id: ID!): UploadFolderEntityResponse
+  createActor(data: ActorInput!): ActorEntityResponse
+  updateActor(id: ID!, data: ActorInput!): ActorEntityResponse
+  deleteActor(id: ID!): ActorEntityResponse
+  createDirector(data: DirectorInput!): DirectorEntityResponse
+  updateDirector(id: ID!, data: DirectorInput!): DirectorEntityResponse
+  deleteDirector(id: ID!): DirectorEntityResponse
+  createMovie(data: MovieInput!): MovieEntityResponse
+  updateMovie(id: ID!, data: MovieInput!): MovieEntityResponse
+  deleteMovie(id: ID!): MovieEntityResponse
+  createMovieGenre(data: MovieGenreInput!): MovieGenreEntityResponse
+  updateMovieGenre(id: ID!, data: MovieGenreInput!): MovieGenreEntityResponse
+  deleteMovieGenre(id: ID!): MovieGenreEntityResponse
+  upload(
+    refId: ID
+    ref: String
+    field: String
+    info: FileInfoInput
+    file: Upload!
+  ): UploadFileEntityResponse!
+  multipleUpload(
+    refId: ID
+    ref: String
+    field: String
+    files: [Upload]!
+  ): [UploadFileEntityResponse]!
+  updateFileInfo(id: ID!, info: FileInfoInput): UploadFileEntityResponse!
+  removeFile(id: ID!): UploadFileEntityResponse
+
+  # Create a new role
+  createUsersPermissionsRole(
+    data: UsersPermissionsRoleInput!
+  ): UsersPermissionsCreateRolePayload
+
+  # Update an existing role
+  updateUsersPermissionsRole(
+    id: ID!
+    data: UsersPermissionsRoleInput!
+  ): UsersPermissionsUpdateRolePayload
+
+  # Delete an existing role
+  deleteUsersPermissionsRole(id: ID!): UsersPermissionsDeleteRolePayload
+
+  # Create a new user
+  createUsersPermissionsUser(
+    data: UsersPermissionsUserInput!
+  ): UsersPermissionsUserEntityResponse!
+
+  # Update an existing user
+  updateUsersPermissionsUser(
+    id: ID!
+    data: UsersPermissionsUserInput!
+  ): UsersPermissionsUserEntityResponse!
+
+  # Delete an existing user
+  deleteUsersPermissionsUser(id: ID!): UsersPermissionsUserEntityResponse!
+  login(input: UsersPermissionsLoginInput!): UsersPermissionsLoginPayload!
+
+  # Register a user
+  register(input: UsersPermissionsRegisterInput!): UsersPermissionsLoginPayload!
+
+  # Request a reset password token
+  forgotPassword(email: String!): UsersPermissionsPasswordPayload
+
+  # Reset user password. Confirm with a code (resetToken from forgotPassword)
+  resetPassword(
+    password: String!
+    passwordConfirmation: String!
+    code: String!
+  ): UsersPermissionsLoginPayload
+
+  # Change user password. Confirm with the current password.
+  changePassword(
+    currentPassword: String!
+    password: String!
+    passwordConfirmation: String!
+  ): UsersPermissionsLoginPayload
+
+  # Confirm an email users email address
+  emailConfirmation(confirmation: String!): UsersPermissionsLoginPayload
+}

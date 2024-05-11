@@ -1,7 +1,14 @@
 plugins {
     alias(libs.plugins.androidApplication)
-}
 
+    id("com.apollographql.apollo3").version("4.0.0-beta.6")
+}
+apollo {
+    service("service") {
+        generateKotlinModels.set(false)
+        packageName.set("com.example.rocketreserver")
+    }
+}
 android {
     namespace = "com.mobile.moviebooking"
     compileSdk = 34
@@ -47,4 +54,7 @@ dependencies {
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.otaliastudios:zoomlayout:1.9.0")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
+    implementation("com.apollographql.apollo3:apollo-runtime-java:4.0.0-beta.6")
 }

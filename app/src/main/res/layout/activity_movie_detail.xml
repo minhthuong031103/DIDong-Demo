@@ -21,7 +21,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="240dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_1"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -47,7 +46,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="20dp"
                             android:layout_marginTop="8dp"
-                            android:text="Avengers: Infinity War"
+                            android:text=""
                             android:textColor="#F2F2F2"
                             android:textSize="20sp"
                             android:textStyle="bold"
@@ -62,7 +61,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="4dp"
                             android:paddingBottom="32dp"
-                            android:text="2h29m • 16.12.2022"
+                            android:text=""
                             android:textColor="#B1B1B1"
                             android:textSize="12sp"
                             app:layout_constraintStart_toStartOf="@+id/movieName"
@@ -96,7 +95,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="2dp"
-                            android:text="3.6"
+                            android:text=""
                             android:textColor="#F2F2F2"
                             android:textSize="13sp"
                             android:textStyle="bold"
@@ -109,7 +108,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="4dp"
-                            android:text="(6.969)"
+                            android:text=""
                             android:textColor="#B1B1B1"
                             android:textSize="11sp"
                             app:layout_constraintBaseline_toBaselineOf="@+id/rating"
@@ -128,13 +127,14 @@
                             app:srb_drawBorderEnabled="false"
                             app:srb_isIndicator="true"
                             app:srb_numberOfStars="5"
-                            app:srb_rating="3.6"
+                            app:srb_rating="5"
                             app:srb_starBackgroundColor="@color/lightGrey"
                             app:srb_starSize="30dp"
                             app:srb_starsSeparation="6dp"
                             app:srb_stepSize="0.1" />
 
                         <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/trailer"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
@@ -226,6 +226,7 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_movie_genre"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
@@ -236,6 +237,7 @@
                             android:letterSpacing="0.02"/>
 
                         <TextView
+                            android:id="@+id/tv_censorship"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"
@@ -246,6 +248,7 @@
                             android:letterSpacing="0.02"/>
 
                         <TextView
+                            android:id="@+id/tv_language"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="16dp"

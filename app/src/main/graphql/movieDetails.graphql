@@ -1,0 +1,68 @@
+query MovieDetails ($id: ID){
+    movie(id: $id) {
+        data {
+            id
+            attributes {
+                title
+                trailer {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                duration
+                release_date
+                language
+                label
+                movie_genres {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                review
+                num_of_reviews
+                description
+                poster {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                actors {
+                    data {
+                        attributes {
+                            name
+                            infoUrl
+                            avatar {
+                                data {
+                                    attributes {
+                                        formats
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                directors {
+                    data {
+                        attributes {
+                            name
+                            infoUrl
+                            avatar {
+                                data {
+                                    attributes {
+                                        formats
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

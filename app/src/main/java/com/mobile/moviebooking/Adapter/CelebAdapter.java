@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -40,6 +42,18 @@ public class CelebAdapter extends RecyclerView.Adapter<CelebAdapter.CelebViewHol
         Celeb celeb = celebList.get(position);
         holder.firstName.setText(celeb.getFirstName());
         holder.lastName.setText(celeb.getLastName());
+
+        if (celeb.getLastName().length()+celeb.getFirstName().length() < 8) {
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(holder.constraintLayout);
+            constraintSet.connect(R.id.firstName,ConstraintSet.BOTTOM,R.id.avatar,ConstraintSet.BOTTOM,0);
+            constraintSet.connect(R.id.lastName,ConstraintSet.START,R.id.firstName,ConstraintSet.END,0);
+            constraintSet.connect(R.id.lastName,ConstraintSet.TOP,R.id.firstName,ConstraintSet.TOP,0);
+            constraintSet.connect(R.id.lastName,ConstraintSet.BOTTOM,R.id.firstName,ConstraintSet.BOTTOM,0);
+            constraintSet.applyTo(holder.constraintLayout);
+            holder.lastName.setPadding(12,0,0,0);
+        }
+
         Glide.with(context).load(celeb.getImageUrl()).into(holder.avatar);
 
         holder.fullLayout.setOnClickListener(v -> {
@@ -60,6 +74,7 @@ public class CelebAdapter extends RecyclerView.Adapter<CelebAdapter.CelebViewHol
         private TextView lastName;
         private CircleImageView avatar;
         private CardView fullLayout;
+        private ConstraintLayout constraintLayout;
 
         public CelebViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +82,7 @@ public class CelebAdapter extends RecyclerView.Adapter<CelebAdapter.CelebViewHol
             lastName = itemView.findViewById(R.id.lastName);
             avatar = itemView.findViewById(R.id.avatar);
             fullLayout = itemView.findViewById(R.id.fullLayout);
+            constraintLayout = itemView.findViewById(R.id.parent_layout);
         }
 
     }
