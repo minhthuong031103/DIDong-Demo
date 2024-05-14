@@ -1,11 +1,18 @@
 package com.mobile.moviebooking.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ScrollView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -18,6 +25,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.apollographql.apollo3.api.ApolloResponse;
 import com.apollographql.apollo3.runtime.java.ApolloCallback;
 import com.apollographql.apollo3.runtime.java.ApolloClient;
+import com.bumptech.glide.Glide;
 import com.example.rocketreserver.MovieDetailsQuery;
 import com.example.rocketreserver.MovieHomaePageQuery;
 import com.mobile.moviebooking.Adapter.HomePageComingMovieAdapter;
@@ -43,6 +51,15 @@ public class HomePage extends AppCompatActivity {
     private RecyclerView comingMovieRecyclerView;
     private HomePageComingMovieAdapter homepageComingMovieAdapter;
     private CircleIndicator3 indicator;
+    private SearchView searchView;
+    private ConstraintLayout SearchedMovieLayout;
+    private ScrollView scrollView;
+    private TextView notFound;
+    private TextView seeAllPlaying;
+    private ImageView seeAllPlayingArrow;
+    private TextView seeAllComing;
+    private ImageView seeAllComingArrow;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +73,101 @@ public class HomePage extends AppCompatActivity {
 
         findViewById();
 
+        setupViewPager();
+
+        loadData();
+
+        setupSearchView();
+
+        setupSeeAllOnClick();
+    }
+
+    private void setupSeeAllOnClick() {
+
+        seeAllPlaying.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePage.this, MovieActivity.class);
+            intent.putExtra("title", "Now Playing");
+            startActivity(intent);
+        });
+        seeAllPlayingArrow.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePage.this, MovieActivity.class);
+            intent.putExtra("title", "Now Playing");
+            startActivity(intent);
+        });
+
+        seeAllComing.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePage.this, MovieActivity.class);
+            intent.putExtra("title", "Coming Soon");
+            startActivity(intent);
+        });
+        seeAllComingArrow.setOnClickListener(v -> {
+            Intent intent = new Intent(HomePage.this, MovieActivity.class);
+            intent.putExtra("title", "Coming Soon");
+            startActivity(intent);
+        });
+    }
+
+    private void setupSearchView() {
+        searchView.clearFocus();
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    SearchedMovieLayout.setVisibility(ConstraintLayout.GONE);
+                    scrollView.setVisibility(ScrollView.VISIBLE);
+                } else {
+                    Movie movie = null;
+                    for (Movie playingMovie : playingMovieList) {
+                        if (playingMovie.getName().toLowerCase().contains(newText.toLowerCase())) {
+                            movie = playingMovie;
+                            break;
+                        }
+                    }
+                    if (movie == null) {
+                        for (Movie comingMovie : comingMovieList) {
+                            if (comingMovie.getName().toLowerCase().contains(newText.toLowerCase())) {
+                                movie = comingMovie;
+                                break;
+                            }
+                        }
+                    }
+                    if (movie != null) {
+                        SearchedMovieLayout.setVisibility(ConstraintLayout.VISIBLE);
+                        Glide.with(HomePage.this).load(movie.getPoster()).into((ImageView) findViewById(R.id.searched_poster));
+                        ((TextView) findViewById(R.id.searched_name)).setText(movie.getName());
+                        Movie finalMovie = movie;
+                        SearchedMovieLayout.setOnClickListener(v -> {
+                            Intent intent = new Intent(HomePage.this, MovieDetail.class);
+                            intent.putExtra("movieId", finalMovie.getId());
+                            startActivity(intent);
+                        });
+                        scrollView.setVisibility(ScrollView.INVISIBLE);
+                        notFound.setVisibility(TextView.GONE);
+                    } else {
+                        SearchedMovieLayout.setVisibility(ConstraintLayout.GONE);
+                        notFound.setVisibility(TextView.VISIBLE);
+                    }
+                }
+                return false;
+            }
+        });
+
+        View closeButton = searchView.findViewById(androidx.appcompat.R.id.search_close_btn);
+        closeButton.setOnClickListener(v -> {
+            if (!searchView.isIconified())
+                searchView.setIconified(true);
+            else
+                searchView.setQuery("", false);
+            notFound.setVisibility(TextView.GONE);
+        });
+    }
+
+    private void setupViewPager() {
         viewPager.setOffscreenPageLimit(3);
         CompositePageTransformer compositePageTransformer = new CompositePageTransformer();
         compositePageTransformer.addTransformer(new MarginPageTransformer(40));
@@ -64,8 +176,6 @@ public class HomePage extends AppCompatActivity {
             page.setScaleY(0.85f + r * 0.15f);
         });
         viewPager.setPageTransformer(compositePageTransformer);
-
-        loadData();
     }
 
     private void loadData() {
@@ -128,5 +238,13 @@ public class HomePage extends AppCompatActivity {
         viewPager = findViewById(R.id.viewPager2);
         indicator = findViewById(R.id.indicator);
         comingMovieRecyclerView = findViewById(R.id.recyclerView);
+        searchView = findViewById(R.id.searchview);
+        SearchedMovieLayout = findViewById(R.id.searched_movie);
+        scrollView = findViewById(R.id.scrollView);
+        notFound = findViewById(R.id.notfound);
+        seeAllComing = findViewById(R.id.seeallcomingsoon);
+        seeAllComingArrow = findViewById(R.id.imgcomingsoon);
+        seeAllPlaying = findViewById(R.id.textView13);
+        seeAllPlayingArrow = findViewById(R.id.imageView10);
     }
 }
