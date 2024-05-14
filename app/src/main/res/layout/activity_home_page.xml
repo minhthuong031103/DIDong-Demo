@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.HomePage"
+    android:background="@color/black"
+    android:theme="@style/Theme.Material3.Dark.NoActionBar">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/welcomeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Hi, Ba Hao 👋"
+                android:textSize="16sp"
+                android:fontFamily="@font/sfpro_medium"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="16dp"
+                android:textColor="@color/bh_text_white"/>
+
+            <TextView
+                android:id="@+id/textView11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/sfpro_medium"
+                android:text="Welcome back"
+                android:textColor="@color/bh_text_white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/welcomeText" />
+
+            <ImageView
+                android:id="@+id/imageView9"
+                android:layout_width="34dp"
+                android:layout_height="32dp"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/notification"
+                app:layout_constraintBottom_toBottomOf="@+id/textView11"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/welcomeText" />
+
+            <ImageView
+                android:id="@+id/setNotification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ellipse_56"
+                app:layout_constraintEnd_toEndOf="@+id/imageView9"
+                app:layout_constraintTop_toTopOf="@+id/imageView9"
+                android:layout_marginRight="4dp"/>
+
+            <androidx.appcompat.widget.SearchView
+                android:id="@+id/searchview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:background="@drawable/cus_search"
+                android:theme="@style/searchView"
+                app:closeIcon="@drawable/round_close_24"
+                app:iconifiedByDefault="false"
+                app:layout_constraintTop_toBottomOf="@+id/textView11"
+                app:queryBackground="@android:color/transparent"
+                app:queryHint="Search..."
+                app:searchIcon="@drawable/akar_icons_search"
+                android:layout_marginTop="16dp"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <ScrollView
+            android:layout_marginTop="8dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Now Playing"
+                    android:textColor="@color/bh_text_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/imageView10"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/bh_arrow_right_yellow"
+                    app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/textView13" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:letterSpacing="0.03"
+                    android:text="See all"
+                    android:textColor="@color/yello_theme"
+                    android:textSize="14dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/textView12"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView10" />
+
+                <androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/viewPager2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:clipChildren="false"
+                    android:clipToPadding="false"
+                    android:paddingHorizontal="80dp"
+                    app:layout_constraintTop_toBottomOf="@+id/textView12" />
+
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator"
+                    android:layout_width="match_parent"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="10dp"
+                    app:ci_drawable="@drawable/circle_indicator"
+                    app:ci_drawable_unselected="@drawable/circle_indicator_unselected"
+                    app:ci_height="6dp"
+                    app:ci_margin="4dp"
+                    app:ci_width="6dp"
+                    app:layout_constraintTop_toBottomOf="@+id/viewPager2" />
+
+                <TextView
+                    android:id="@+id/comingsoon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="18dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Now Playing"
+                    android:textColor="@color/bh_text_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/indicator" />
+
+                <ImageView
+                    android:id="@+id/imgcomingsoon"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/bh_arrow_right_yellow"
+                    app:layout_constraintBottom_toBottomOf="@+id/seeallcomingsoon"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/seeallcomingsoon" />
+
+                <TextView
+                    android:id="@+id/seeallcomingsoon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:letterSpacing="0.03"
+                    android:text="See all"
+                    android:textColor="@color/yello_theme"
+                    android:textSize="14dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/comingsoon"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView10" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="18dp"
+                    android:clipToPadding="false"
+                    android:orientation="horizontal"
+                    android:paddingRight="16dp"
+                    app:layout_constraintTop_toBottomOf="@+id/comingsoon" />
+
+                <TextView
+                    android:id="@+id/promo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:text="Promo &amp; Discount"
+                    android:textColor="@color/bh_text_white"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+
+                <ImageView
+                    android:id="@+id/imgpromo"
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/bh_arrow_right_yellow"
+                    app:layout_constraintBottom_toBottomOf="@+id/promo"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="@+id/promo" />
+                <TextView
+                    android:id="@+id/seeallpromo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="2dp"
+                    android:fontFamily="@font/sfpro_medium"
+                    android:letterSpacing="0.03"
+                    android:text="See all"
+                    android:textColor="@color/yello_theme"
+                    android:textSize="14dp"
+                    app:layout_constraintBaseline_toBaselineOf="@+id/promo"
+                    app:layout_constraintEnd_toStartOf="@+id/imageView10" />
+
+                <ImageView
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/promo"
+                    app:layout_constraintTop_toBottomOf="@id/promo" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

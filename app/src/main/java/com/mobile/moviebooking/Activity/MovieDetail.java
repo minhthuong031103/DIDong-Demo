@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,22 +30,15 @@ import com.mobile.moviebooking.Adapter.CelebAdapter;
 import com.mobile.moviebooking.Entity.Celeb;
 import com.mobile.moviebooking.R;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.LinkedHashMap;
+
 import java.util.List;
 import java.util.Map;
 
-
-import okhttp3.OkHttpClient;
-
-import okhttp3.logging.HttpLoggingInterceptor;
 
 public class MovieDetail extends AppCompatActivity {
     private ImageView backBtn;
@@ -54,7 +48,7 @@ public class MovieDetail extends AppCompatActivity {
     List<Celeb> actorList = new ArrayList<>();
     ExtendedFloatingActionButton bookingBtn;
     ImageView poster;
-    Optional<String> movieId = Optional.present("1");
+    Optional<String> movieId;
     TextView tv_movieName;
     String movieName;
     String moviePoster;
@@ -63,11 +57,7 @@ public class MovieDetail extends AppCompatActivity {
     TextView tv_movieDescription;
     String movieDescription;
     TextView tv_rating;
-    String movieRating;
     TextView tv_numOfRatings;
-    int numberOfRatings;
-    int movieDuration;
-    Date movieReleaseDate;
     TextView tv_durationAndDateRelease;
     TextView tv_genre;
     TextView tv_censorship;
@@ -85,13 +75,14 @@ public class MovieDetail extends AppCompatActivity {
             return insets;
         });
 
+        movieId = Optional.present(getIntent().getStringExtra("movieId"));
+
         findViewById();
         sharedPreferences = getSharedPreferences("movieInfo", MODE_PRIVATE);
 
         loadMovieDetails();
 
         setupEventListener();
-
     }
 
     private void setupEventListener() {
@@ -129,17 +120,18 @@ public class MovieDetail extends AppCompatActivity {
 
         apolloClient.query(new MovieDetailsQuery(movieId)).enqueue(response -> {
             if (response.data != null) {
-
                 runOnUiThread(() -> {
                     moviePoster = response.data.movie.data.attributes.poster.data.attributes.url;
                     Glide.with(MovieDetail.this)
-                        .load(moviePoster)
-                        .into(poster);
+                            .load(moviePoster)
+                            .into(poster);
                     tv_rating.setText(response.data.movie.data.attributes.review.toString());
                     tv_numOfRatings.setText("("+response.data.movie.data.attributes.num_of_reviews+")");
                     movieName = response.data.movie.data.attributes.title;
                     tv_movieName.setText(movieName);
-                    tv_movieDescription.setText(response.data.movie.data.attributes.description);
+
+                    movieDescription = response.data.movie.data.attributes.description;
+
                     movieTrailer = response.data.movie.data.attributes.trailer.data.attributes.url;
                     ratingBar.setRating((response.data.movie.data.attributes.review).floatValue());
                     int iDuration = response.data.movie.data.attributes.duration;
@@ -163,12 +155,61 @@ public class MovieDetail extends AppCompatActivity {
                     tv_censorship.setText(response.data.movie.data.attributes.label.rawValue);
                     tv_language.setText(response.data.movie.data.attributes.language.rawValue);
 
+                    setSeeMoreSeeLessDescription();
                     loadDirector(response.data.movie.data.attributes.directors.data);
                     loadActor(response.data.movie.data.attributes.actors.data);
 
+                    if (response.data.movie.data.attributes.is_showing == false) {
+                        bookingBtn.setText("Coming Soon");
+                        bookingBtn.setEnabled(false);
+                        bookingBtn.setTextColor(getResources().getColor(R.color.txt_disabled_btn));
+                        bookingBtn.setBackgroundColor(getResources().getColor(R.color.bg_disabled_btn));
+                    }
                 });
             } else {
                 Log.e("error", "error: "+response.exception);
+            }
+        });
+
+    }
+
+    private void setSeeMoreSeeLessDescription() {
+        // Constants
+        final int MAX_DESCRIPTION_LENGTH = 150;
+        final int SHORTENED_LENGTH = 128;
+
+        // Check if description needs truncation
+        if (movieDescription.length() > MAX_DESCRIPTION_LENGTH) {
+            // Determine the truncation point based on whitespace
+            int truncateIndex = movieDescription.lastIndexOf(' ', SHORTENED_LENGTH);
+            if (truncateIndex == -1) {
+                truncateIndex = SHORTENED_LENGTH; // If no space found, truncate at default length
+            }
+
+            // Create truncated description with 'See more' link
+            String truncatedText = movieDescription.substring(0, truncateIndex) + "...";
+            String seeMoreText = "<font color='#FCC434'><b>See more</b></font>";
+            tv_movieDescription.setText(Html.fromHtml(truncatedText + seeMoreText));
+        } else {
+            // Display full description
+            tv_movieDescription.setText(Html.fromHtml(movieDescription));
+        }
+
+        // Toggle 'See more'/'See less' on description click
+        tv_movieDescription.setOnClickListener(v -> {
+            CharSequence currentText = tv_movieDescription.getText();
+            if (currentText.toString().contains("See more")) {
+                // Expand to full description with 'See less' link
+                tv_movieDescription.setText(Html.fromHtml(movieDescription + "<font color='#FCC434'><b> See less</b></font>"));
+            } else {
+                // Truncate again with 'See more' link
+                int truncateIndex = movieDescription.lastIndexOf(' ', SHORTENED_LENGTH);
+                if (truncateIndex == -1) {
+                    truncateIndex = SHORTENED_LENGTH;
+                }
+                String truncatedText = movieDescription.substring(0, truncateIndex) + "...";
+                String seeMoreText = "<font color='#FCC434'><b>See more</b></font>";
+                tv_movieDescription.setText(Html.fromHtml(truncatedText + seeMoreText));
             }
         });
     }
@@ -212,7 +253,6 @@ public class MovieDetail extends AppCompatActivity {
         actorList.clear();
         for (MovieDetailsQuery.Data5 actor: actors) {
             Map<String, Map<String, Object>> avatarFormats = (Map<String, Map<String, Object>>) actor.attributes.avatar.data.attributes.formats;
-            Log.d("avatarFormats", avatarFormats.toString());
             Map<String, Object> largeFormat = avatarFormats.get("thumbnail");
             String avatarUrl = (String) largeFormat.get("url");
             actorList.add(new Celeb(

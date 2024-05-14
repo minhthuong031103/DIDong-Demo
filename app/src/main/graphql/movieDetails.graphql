@@ -25,6 +25,7 @@ query MovieDetails ($id: ID){
                 review
                 num_of_reviews
                 description
+                is_showing
                 poster {
                     data {
                         attributes {

@@ -1,0 +1,30 @@
+query MovieHomaePage {
+    movies (sort: "review:desc") {
+        data {
+            id
+            attributes
+            {
+                title
+                duration
+                release_date
+                poster {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+                movie_genres {
+                    data {
+                        attributes {
+                            name
+                        }
+                    }
+                }
+                is_showing
+                review
+                num_of_reviews
+            }
+        }
+    }
+}
