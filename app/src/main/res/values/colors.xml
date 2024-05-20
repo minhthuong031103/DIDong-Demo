@@ -28,4 +28,5 @@
     <color name="txt_disabled_btn">#5C5C5C</color>
     <color name="txt_enabled_btn">#000000</color>
     <color name="payment_selected">#261D08</color>
+    <color name="card_bg">#222222</color>
 </resources>

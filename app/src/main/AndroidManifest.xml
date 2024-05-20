@@ -24,6 +24,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".Activity.Profile"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.TicketDetail"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.MyTicket"
+            android:exported="true" />
         <activity
             android:name=".Activity.Empty"
             android:exported="true">
