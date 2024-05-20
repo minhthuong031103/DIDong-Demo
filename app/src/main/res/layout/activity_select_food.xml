@@ -48,17 +48,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
+
         <ListView
-            android:layout_marginTop="16dp"
+            android:id="@+id/lv_food"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="none"
-            android:divider="@null"
-            android:id="@+id/lv_food"
+            android:layout_marginTop="16dp"
             android:layout_marginBottom="80dp"
-            android:dividerHeight="12dp"
+            android:divider="@null"
+            android:dividerHeight="16dp"
+            android:listSelector="@android:color/transparent"
             android:paddingHorizontal="16dp"
-            android:listSelector="@android:color/transparent" />
+            android:scrollbars="none" />
     </LinearLayout>
 
     <LinearLayout
