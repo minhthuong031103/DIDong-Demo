@@ -49,4 +49,5 @@ dependencies {
     implementation("com.otaliastudios:zoomlayout:1.9.0")
     implementation ("com.ashokvarma.android:bottom-navigation-bar:2.2.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
+    implementation("me.relex:circleindicator:2.1.6")
 }
