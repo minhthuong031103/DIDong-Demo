@@ -96,7 +96,6 @@ public class SelectShowtime extends AppCompatActivity {
 
     private void loadCinema(Date date)  {
         cinemas.clear();
-        List<Showtime> showtimes = new ArrayList<>();
 
         for (GetShowTimesQuery.Data1 showtime : ListShowTime) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");

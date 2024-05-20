@@ -26,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFood extends AppCompatActivity {
-    private List<Food> foods = new ArrayList<>();
+    private static List<Food> foods = new ArrayList<>();
     private ListView lvFood;
     private int totalPayment = 0;
     private TextView tvTotalPayment;
@@ -100,5 +100,15 @@ public class SelectFood extends AppCompatActivity {
             totalPayment += food.getPrice() * food.getQuantity();
         }
         tvTotalPayment.setText(String.format("%,d", totalPayment).replace(',', '.') + " VNĐ");
+    }
+
+    public static List<Food> getSelectedFoods() {
+        List<Food> selectedFoods = new ArrayList<>();
+        for (Food food : foods) {
+            if (food.getQuantity() > 0) {
+                selectedFoods.add(food);
+            }
+        }
+        return selectedFoods;
     }
 }

@@ -36,7 +36,7 @@ import java.util.List;
 
 public class SelectSeat extends AppCompatActivity {
     private GridView seatsGridView;
-    private List<Seat> seats = new ArrayList<>();
+    private static List<Seat> seats = new ArrayList<>();
     private int numRow = 0;
     private int numCol = 0;
     private ImageView backBtn;
@@ -203,5 +203,14 @@ public class SelectSeat extends AppCompatActivity {
 
     private String numberToVND(int number) {
         return String.format("%,d", number).replace(',', '.') + " VND";
+    }
+    public static List<Seat> selectedSeats(){
+        List<Seat> selectedSeats = new ArrayList<>();
+        for (Seat seat : seats) {
+            if (seat.getStatus() == 2) {
+                selectedSeats.add(seat);
+            }
+        }
+        return selectedSeats;
     }
 }

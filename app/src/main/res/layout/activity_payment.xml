@@ -576,12 +576,12 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:letterSpacing="0.06"
-        android:text="Buy ticket"
+        android:text="Choose payment method"
         android:textAlignment="center"
-        android:textColor="@color/txt_enabled_btn"
+        android:textColor="@color/txt_disabled_btn"
         android:textSize="16dp"
         android:textStyle="bold"
-        app:backgroundTint="@color/bg_enabled_btn"
+        app:backgroundTint="@color/bg_disabled_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="16dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

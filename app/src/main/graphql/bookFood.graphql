@@ -1,0 +1,11 @@
+mutation bookFood ($ticketID: ID, $foodItem: ID, $quantity: Int) {
+    createOrderItem (data: {
+        food_item: $foodItem
+        quantity: $quantity
+        ticket: $ticketID
+    }) {
+        data {
+            id
+        }
+    }
+}

@@ -4,6 +4,7 @@ import static android.content.ContentValues.TAG;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.os.Looper;
 import android.util.Log;
@@ -26,6 +27,7 @@ import com.mobile.moviebooking.Entity.Cinema;
 import com.mobile.moviebooking.Entity.Showtime;
 import com.mobile.moviebooking.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Handler;
@@ -134,6 +136,13 @@ public class CinemaAdapter extends BaseAdapter {
                         intent.putExtra("showtimeId", showtimes.get(position1).getId());
                         intent.putExtra("screenId", showtimes.get(position1).getScreenId());
                         intent.putExtra("price", showtimes.get(position1).getPrice());
+                        SharedPreferences.Editor editor =
+                                context.getSharedPreferences("bookingMovieInfo", Context.MODE_PRIVATE).edit();
+                        editor.putString("cinemaName", viewHolder.name.getText().toString());
+                        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyy ' • ' HH:mm");
+                        editor.putString("showtime", sdf.format(showtimes.get(position1).getShowtime()));
+                        editor.putString("showtimeId", String.valueOf(showtimes.get(position1).getId()));
+                        editor.apply();
                     });
                 }
             }
