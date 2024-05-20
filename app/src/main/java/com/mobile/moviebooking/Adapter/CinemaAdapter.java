@@ -132,6 +132,8 @@ public class CinemaAdapter extends BaseAdapter {
                             });
                         }).start();
                         intent.putExtra("showtimeId", showtimes.get(position1).getId());
+                        intent.putExtra("screenId", showtimes.get(position1).getScreenId());
+                        intent.putExtra("price", showtimes.get(position1).getPrice());
                     });
                 }
             }

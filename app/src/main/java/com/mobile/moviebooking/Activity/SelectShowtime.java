@@ -97,19 +97,6 @@ public class SelectShowtime extends AppCompatActivity {
     private void loadCinema(Date date)  {
         cinemas.clear();
         List<Showtime> showtimes = new ArrayList<>();
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            showtimes.add(new Showtime(6, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 08:45:00"), 1, 1));
-//            showtimes.add(new Showtime(1, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 16:45:00"), 1, 1));
-//            showtimes.add(new Showtime(2, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 17:45:00"), 1, 1));
-//            showtimes.add(new Showtime(3, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 18:45:00"), 1, 1));
-//            showtimes.add(new Showtime(4, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 19:45:00"), 1, 1));
-//            showtimes.add(new Showtime(5, 60000, new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse("2024-02-11 20:45:00"), 1, 1));
-//        }
-
-//        cinemas.add(new Cinema("Vincom Ocean Park CGV", "Da Ton, Gia Lam, Ha Noi", "https://res.cloudinary.com/dlglmq9np/image/upload/v1714378297/bh_cinema_logo_npg0ws.png", showtimes));
-//        cinemas.add(new Cinema("Aeon Mall CGV", "27 Co Linh, Long Bien, Ha Noi", "https://res.cloudinary.com/dlglmq9np/image/upload/v1714378297/bh_cinema_logo_npg0ws.png", showtimes));
-//        cinemas.add(new Cinema("CGV Pamulang Timur", "7-9 Nguyen Van Linh, Long Bien, Ha Noi", "https://res.cloudinary.com/dlglmq9np/image/upload/v1714378297/bh_cinema_logo_npg0ws.png", showtimes));
-//        cinemas.add(new Cinema("CGV Pamulang Timur", "7-9 Nguyen Van Linh, Long Bien, Ha Noi", "https://res.cloudinary.com/dlglmq9np/image/upload/v1714378297/bh_cinema_logo_npg0ws.png", showtimes));
 
         for (GetShowTimesQuery.Data1 showtime : ListShowTime) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
