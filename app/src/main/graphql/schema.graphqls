@@ -7,6 +7,9 @@ scalar DateTime
 # A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 scalar Date
 
+# The `BigInt` scalar type represents non-fractional signed whole numeric values.
+scalar Long
+
 # The `Upload` scalar type represents a file upload.
 scalar Upload
 
@@ -124,6 +127,31 @@ input IntFilterInput {
   in: [Int]
   notIn: [Int]
   between: [Int]
+}
+
+input LongFilterInput {
+  and: [Long]
+  or: [Long]
+  not: LongFilterInput
+  eq: Long
+  eqi: Long
+  ne: Long
+  nei: Long
+  startsWith: Long
+  endsWith: Long
+  contains: Long
+  notContains: Long
+  containsi: Long
+  notContainsi: Long
+  gt: Long
+  gte: Long
+  lt: Long
+  lte: Long
+  null: Boolean
+  notNull: Boolean
+  in: [Long]
+  notIn: [Long]
+  between: [Long]
 }
 
 input FloatFilterInput {
@@ -493,6 +521,7 @@ input UsersPermissionsUserFiltersInput {
   confirmed: BooleanFilterInput
   blocked: BooleanFilterInput
   role: UsersPermissionsRoleFiltersInput
+  tickets: TicketFiltersInput
   createdAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   and: [UsersPermissionsUserFiltersInput]
@@ -510,6 +539,7 @@ input UsersPermissionsUserInput {
   confirmed: Boolean
   blocked: Boolean
   role: ID
+  tickets: [ID]
 }
 
 type UsersPermissionsUser {
@@ -519,6 +549,11 @@ type UsersPermissionsUser {
   confirmed: Boolean
   blocked: Boolean
   role: UsersPermissionsRoleEntityResponse
+  tickets(
+    filters: TicketFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): TicketRelationResponseCollection
   createdAt: DateTime
   updatedAt: DateTime
 }
@@ -545,10 +580,9 @@ input ActorFiltersInput {
   id: IDFilterInput
   name: StringFilterInput
   movies: MovieFiltersInput
-  infoUrl: StringFilterInput
+  infor_url: StringFilterInput
   createdAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
-  publishedAt: DateTimeFilterInput
   and: [ActorFiltersInput]
   or: [ActorFiltersInput]
   not: ActorFiltersInput
@@ -558,8 +592,7 @@ input ActorInput {
   name: String
   avatar: ID
   movies: [ID]
-  infoUrl: String
-  publishedAt: DateTime
+  infor_url: String
 }
 
 type Actor {
@@ -571,10 +604,9 @@ type Actor {
     sort: [String] = []
     publicationState: PublicationState = LIVE
   ): MovieRelationResponseCollection
-  infoUrl: String
+  infor_url: String
   createdAt: DateTime
   updatedAt: DateTime
-  publishedAt: DateTime
 }
 
 type ActorEntity {
@@ -595,11 +627,61 @@ type ActorRelationResponseCollection {
   data: [ActorEntity!]!
 }
 
+input CinemaFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  location: StringFilterInput
+  screens: ScreenFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [CinemaFiltersInput]
+  or: [CinemaFiltersInput]
+  not: CinemaFiltersInput
+}
+
+input CinemaInput {
+  name: String
+  location: String
+  logo: ID
+  screens: [ID]
+  publishedAt: DateTime
+}
+
+type Cinema {
+  name: String
+  location: String
+  logo: UploadFileEntityResponse
+  screens(
+    filters: ScreenFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ScreenRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type CinemaEntity {
+  id: ID
+  attributes: Cinema
+}
+
+type CinemaEntityResponse {
+  data: CinemaEntity
+}
+
+type CinemaEntityResponseCollection {
+  data: [CinemaEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
 input DirectorFiltersInput {
   id: IDFilterInput
   name: StringFilterInput
   movies: MovieFiltersInput
-  infoUrl: StringFilterInput
+  infor_url: StringFilterInput
   createdAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   publishedAt: DateTimeFilterInput
@@ -612,7 +694,7 @@ input DirectorInput {
   name: String
   avatar: ID
   movies: [ID]
-  infoUrl: String
+  infor_url: String
   publishedAt: DateTime
 }
 
@@ -625,7 +707,7 @@ type Director {
     sort: [String] = []
     publicationState: PublicationState = LIVE
   ): MovieRelationResponseCollection
-  infoUrl: String
+  infor_url: String
   createdAt: DateTime
   updatedAt: DateTime
   publishedAt: DateTime
@@ -649,6 +731,55 @@ type DirectorRelationResponseCollection {
   data: [DirectorEntity!]!
 }
 
+input FoodItemFiltersInput {
+  id: IDFilterInput
+  name: StringFilterInput
+  description: StringFilterInput
+  order_items: OrderItemFiltersInput
+  price: LongFilterInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [FoodItemFiltersInput]
+  or: [FoodItemFiltersInput]
+  not: FoodItemFiltersInput
+}
+
+input FoodItemInput {
+  name: String
+  description: String
+  image: ID
+  order_items: [ID]
+  price: Long
+}
+
+type FoodItem {
+  name: String
+  description: String
+  image: UploadFileEntityResponse
+  order_items(
+    filters: OrderItemFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): OrderItemRelationResponseCollection
+  price: Long
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type FoodItemEntity {
+  id: ID
+  attributes: FoodItem
+}
+
+type FoodItemEntityResponse {
+  data: FoodItemEntity
+}
+
+type FoodItemEntityResponseCollection {
+  data: [FoodItemEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
 enum ENUM_MOVIE_LABEL {
   P
   T18
@@ -659,125 +790,125 @@ enum ENUM_MOVIE_LABEL {
 }
 
 enum ENUM_MOVIE_LANGUAGE {
-  Tieng_Afrikaans
-  Tieng_Albania
-  Tieng_Amharic
-  Tieng_A_Rap
-  Tieng_Armenia
-  Tieng_Azerbaijan
-  Tieng_Basque
-  Tieng_Belarus
-  Tieng_Bengal
-  Tieng_Bosnia
-  Tieng_Bulgaria
-  Tieng_Catalan
-  Tieng_Cebuano
-  Tieng_Chichewa
-  Tieng_Corsica
-  Tieng_Croatia
-  Tieng_Czech
-  Tieng_Dan_Mach
-  Tieng_Duc
-  Tieng_Esperanto
-  Tieng_Estonia
-  Tieng_Farsi
-  Tieng_Phan_Lan
-  Tieng_Phap
-  Tieng_Frisian
-  Tieng_Galicia
-  Tieng_Gruzia
-  Tieng_Gujarati
-  Tieng_Haiti_Creole
-  Tieng_Hausa
-  Tieng_Hawaii
-  Tieng_Hebrew
-  Tieng_Hindi
-  Tieng_Hmong
-  Tieng_Hungary
-  Tieng_Iceland
-  Tieng_Igbo
-  Tieng_Indonesia
-  Tieng_Ireland
-  Tieng_Italia
-  Tieng_Java
-  Tieng_Kannada
-  Tieng_Kazakh
-  Tieng_Khmer
-  Tieng_Kinyarwanda
-  Tieng_Kurd
-  Tieng_Kyrgyz
-  Tieng_Lao
-  Tieng_Latin
-  Tieng_Latvia
-  Tieng_Litva
-  Tieng_Luxembourg
-  Tieng_Macedonia
-  Tieng_Malagasy
-  Tieng_Malay
-  Tieng_Malayalam
-  Tieng_Malta
-  Tieng_Maori
-  Tieng_Marathi
-  Tieng_Mong_Co
-  Tieng_Myanmar
-  Tieng_Nepal
-  Tieng_Na_Uy
-  Tieng_Odia
-  Tieng_Pashto
-  Tieng_Ba_Lan
-  Tieng_Bo_Dao_Nha
-  Tieng_Punjab
-  Tieng_Rumani
-  Tieng_Nga
-  Tieng_Samoa
-  Tieng_Scotland_Gaelic
-  Tieng_Serbia
-  Tieng_Sesotho
-  Tieng_Shona
-  Tieng_Sindhi
-  Tieng_Sinhala
-  Tieng_Slovak
-  Tieng_Slovenia
-  Tieng_Somali
-  Tieng_Tay_Ban_Nha
-  Tieng_Sundan
-  Tieng_Swahili
-  Tieng_Thuy_Dien
-  Tieng_Tagalog
-  Tieng_Tajik
-  Tieng_Tamil
-  Tieng_Tatar
-  Tieng_Telugu
-  Tieng_Thai
-  Tieng_Tho_Nhi_Ky
-  Tieng_Turkmen
-  Tieng_Uighur
-  Tieng_Ukraine
-  Tieng_Urdu
-  Tieng_Uzbek
-  Tieng_Viet
-  Tieng_Wales
-  Tieng_Xhosa
-  Tieng_Yiddish
-  Tieng_Yoruba
-  Tieng_Zulu
+  Afrikaans
+  Albanian
+  Amharic
+  Arabic
+  Armenian
+  Azerbaijani
+  Basque
+  Belarusian
+  Bengali
+  Bosnian
+  Bulgarian
+  Catalan
+  Cebuano
+  Chichewa
+  Corsican
+  Croatian
+  Czech
+  Danish
+  German
+  Esperanto
+  Estonian
+  Persian
+  Finnish
+  French
+  Frisian
+  Galician
+  Georgian
+  Gujarati
+  Haitian_Creole
+  Hausa
+  Hawaiian
+  Hebrew
+  Hindi
+  Hmong
+  Hungarian
+  Icelandic
+  Igbo
+  Indonesian
+  Irish
+  Italian
+  Javanese
+  Kannada
+  Kazakh
+  Khmer
+  Kinyarwanda
+  Kurdish
+  Kyrgyz
+  Lao
+  Latin
+  Latvian
+  Lithuanian
+  Luxembourgish
+  Macedonian
+  Malagasy
+  Malay
+  Malayalam
+  Maltese
+  Maori
+  Marathi
+  Mongolian
+  Burmese
+  Nepali
+  Norwegian
+  Odia
+  Pashto
+  Polish
+  Portuguese
+  Punjabi
+  Romanian
+  Russian
+  Samoan
+  Scots_Gaelic
+  Serbian
+  Sesotho
+  Shona
+  Sindhi
+  Sinhala
+  Slovak
+  Slovenian
+  Somali
+  Spanish
+  Sundanese
+  Swahili
+  Swedish
+  Tagalog
+  Tajik
+  Tamil
+  Tatar
+  Telugu
+  Thai
+  Turkish
+  Turkmen
+  Uyghur
+  Ukrainian
+  Urdu
+  Uzbek
+  Vietnamese
+  Welsh
+  Xhosa
+  Yiddish
+  Yoruba
+  Zulu
 }
 
 enum ENUM_MOVIE_COUNTRY {
   Afghanistan
-  Ai_Cap
+  Egypt
   Albania
   Algeria
   Andorra
   Angola
-  Antigua_va_Barbuda
-  A_Rap_Saudi
+  Antigua_and_Barbuda
+  Saudi_Arabia
   Argentina
   Armenia
   Australia
-  Ao
+  Austria
   Azerbaijan
-  An_Do
+  India
   Bahamas
   Bahrain
   Bangladesh
@@ -786,38 +917,38 @@ enum ENUM_MOVIE_COUNTRY {
   Belize
   Benin
   Bhutan
-  Bi
+  Belgium
   Bolivia
-  Bosna_va_Hercegovina
+  Bosnia_and_Herzegovina
   Botswana
-  Bo_Dao_Nha
+  Portugal
   Brazil
   Brunei
   Bulgaria
   Burkina_Faso
   Burundi
-  Cac_Tieu_Vuong_quoc_A_Rap_Thong_nhat
+  United_Arab_Emirates
   Cameroon
-  Campuchia
+  Cambodia
   Canada
   Cape_Verde
   Chad
   Chile
   Colombia
   Comoros
-  Cong_hoa_Congo
-  Cong_hoa_Dan_chu_Congo
-  Cong_hoa_Dominican
-  Cong_hoa_Sec
-  Cong_hoa_Trung_Phi
+  Republic_of_the_Congo
+  Democratic_Republic_of_the_Congo
+  Dominican_Republic
+  Czech_Republic
+  Central_African_Republic
   Costa_Rica
   Croatia
   Cuba
   Djibouti
   Dominica
-  Dan_Mach
-  Dong_Timor
-  Duc
+  Denmark
+  East_Timor
+  Germany
   Ecuador
   El_Salvador
   Eritrea
@@ -832,16 +963,16 @@ enum ENUM_MOVIE_COUNTRY {
   Guatemala
   Guinea
   Guinea_Bissau
-  Guinea_Xich_Dao
+  Equatorial_Guinea
   Guyana
-  Ha_Lan
+  Netherlands
   Haiti
-  Han_Quoc
-  Hoa_Ky
+  South_Korea
+  United_States
   Honduras
   Hong_Kong
   Hungary
-  Hy_Lap
+  Greece
   Iceland
   Indonesia
   Iran
@@ -855,42 +986,42 @@ enum ENUM_MOVIE_COUNTRY {
   Kiribati
   Kuwait
   Kyrgyzstan
-  Lao
+  Laos
   Latvia
   Lesotho
-  Liban
+  Lebanon
   Liberia
   Libya
   Liechtenstein
   Lithuania
   Luxembourg
-  Ma_roc
+  Morocco
   Madagascar
   Malawi
   Malaysia
   Maldives
   Mali
   Malta
-  Marshall
+  Marshall_Islands
   Mauritania
   Mauritius
   Mexico
   Micronesia
   Moldova
   Monaco
-  Mong_Co
+  Mongolia
   Montenegro
   Mozambique
   Myanmar
-  Na_Uy
-  Nam_Phi
-  Nam_Sudan
+  Norway
+  South_Africa
+  South_Sudan
   Namibia
   Nauru
   Nepal
   New_Zealand
-  Nga
-  Nhat_Ban
+  Russia
+  Japan
   Nicaragua
   Niger
   Nigeria
@@ -903,49 +1034,47 @@ enum ENUM_MOVIE_COUNTRY {
   Papua_New_Guinea
   Paraguay
   Peru
-  Phap
+  France
   Philippines
   Qatar
-  Quan_dao_Cook
-  Quan_dao_Marshall
-  Quan_dao_Solomon
+  Cook_Islands
+  Solomon_Islands
   Rwanda
-  Saint_Kitts_va_Nevis
+  Saint_Kitts_and_Nevis
   Saint_Lucia
-  Saint_Vincent_va_Grenadines
+  Saint_Vincent_and_the_Grenadines
   Samoa
   San_Marino
-  Sao_Tome_va_Principe
+  Sao_Tome_and_Principe
   Senegal
   Serbia
   Seychelles
   Sierra_Leone
   Singapore
-  Sip
+  Cyprus
   Slovakia
   Slovenia
   Somalia
   Sri_Lanka
   Sudan
   Suriname
-  Swaziland
+  Eswatini
   Syria
   Tajikistan
   Tanzania
-  Tay_Ban_Nha
-  Thai_Lan
-  Tho_Nhi_Ky
-  Thuy_Dien
-  Thuy_Si
+  Spain
+  Thailand
+  Turkey
+  Sweden
+  Switzerland
   Togo
   Tonga
-  Trieu_Tien
-  Trinidad_va_Tobago
-  Trung_Quoc
+  North_Korea
+  Trinidad_and_Tobago
+  China
   Tunisia
   Turkmenistan
   Tuvalu
-  Uc
   Uganda
   Ukraine
   Uruguay
@@ -953,7 +1082,7 @@ enum ENUM_MOVIE_COUNTRY {
   Vanuatu
   Vatican
   Venezuela
-  Viet_Nam
+  Vietnam
   Yemen
   Zambia
   Zimbabwe
@@ -972,8 +1101,9 @@ input MovieFiltersInput {
   label: StringFilterInput
   language: StringFilterInput
   country: StringFilterInput
-  num_of_reviews: IntFilterInput
+  show_times: ShowTimeFiltersInput
   review: FloatFilterInput
+  num_of_reviews: IntFilterInput
   createdAt: DateTimeFilterInput
   updatedAt: DateTimeFilterInput
   publishedAt: DateTimeFilterInput
@@ -996,8 +1126,9 @@ input MovieInput {
   label: ENUM_MOVIE_LABEL
   language: ENUM_MOVIE_LANGUAGE
   country: ENUM_MOVIE_COUNTRY
-  num_of_reviews: Int
+  show_times: [ID]
   review: Float
+  num_of_reviews: Int
   publishedAt: DateTime
 }
 
@@ -1012,7 +1143,6 @@ type Movie {
     filters: ActorFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-    publicationState: PublicationState = LIVE
   ): ActorRelationResponseCollection
   directors(
     filters: DirectorFiltersInput
@@ -1030,8 +1160,14 @@ type Movie {
   label: ENUM_MOVIE_LABEL
   language: ENUM_MOVIE_LANGUAGE
   country: ENUM_MOVIE_COUNTRY
-  num_of_reviews: Int
+  show_times(
+    filters: ShowTimeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ShowTimeRelationResponseCollection
   review: Float
+  num_of_reviews: Int
   createdAt: DateTime
   updatedAt: DateTime
   publishedAt: DateTime
@@ -1104,6 +1240,283 @@ type MovieGenreRelationResponseCollection {
   data: [MovieGenreEntity!]!
 }
 
+input OrderItemFiltersInput {
+  id: IDFilterInput
+  food_item: FoodItemFiltersInput
+  quantity: IntFilterInput
+  ticket: TicketFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [OrderItemFiltersInput]
+  or: [OrderItemFiltersInput]
+  not: OrderItemFiltersInput
+}
+
+input OrderItemInput {
+  food_item: ID
+  quantity: Int
+  ticket: ID
+}
+
+type OrderItem {
+  food_item: FoodItemEntityResponse
+  quantity: Int
+  ticket: TicketEntityResponse
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type OrderItemEntity {
+  id: ID
+  attributes: OrderItem
+}
+
+type OrderItemEntityResponse {
+  data: OrderItemEntity
+}
+
+type OrderItemEntityResponseCollection {
+  data: [OrderItemEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type OrderItemRelationResponseCollection {
+  data: [OrderItemEntity!]!
+}
+
+input ScreenFiltersInput {
+  id: IDFilterInput
+  screen_number: IntFilterInput
+  cinema: CinemaFiltersInput
+  seats: SeatFiltersInput
+  show_times: ShowTimeFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [ScreenFiltersInput]
+  or: [ScreenFiltersInput]
+  not: ScreenFiltersInput
+}
+
+input ScreenInput {
+  screen_number: Int
+  cinema: ID
+  seats: [ID]
+  show_times: [ID]
+  publishedAt: DateTime
+}
+
+type Screen {
+  screen_number: Int
+  cinema: CinemaEntityResponse
+  seats(
+    filters: SeatFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): SeatRelationResponseCollection
+  show_times(
+    filters: ShowTimeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ShowTimeRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type ScreenEntity {
+  id: ID
+  attributes: Screen
+}
+
+type ScreenEntityResponse {
+  data: ScreenEntity
+}
+
+type ScreenEntityResponseCollection {
+  data: [ScreenEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type ScreenRelationResponseCollection {
+  data: [ScreenEntity!]!
+}
+
+input SeatFiltersInput {
+  id: IDFilterInput
+  seat_row: StringFilterInput
+  seat_number: IntFilterInput
+  screen: ScreenFiltersInput
+  tickets: TicketFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [SeatFiltersInput]
+  or: [SeatFiltersInput]
+  not: SeatFiltersInput
+}
+
+input SeatInput {
+  seat_row: String
+  seat_number: Int
+  screen: ID
+  tickets: [ID]
+  publishedAt: DateTime
+}
+
+type Seat {
+  seat_row: String
+  seat_number: Int
+  screen: ScreenEntityResponse
+  tickets(
+    filters: TicketFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): TicketRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type SeatEntity {
+  id: ID
+  attributes: Seat
+}
+
+type SeatEntityResponse {
+  data: SeatEntity
+}
+
+type SeatEntityResponseCollection {
+  data: [SeatEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type SeatRelationResponseCollection {
+  data: [SeatEntity!]!
+}
+
+input ShowTimeFiltersInput {
+  id: IDFilterInput
+  movie: MovieFiltersInput
+  screen: ScreenFiltersInput
+  show_time: DateTimeFilterInput
+  price: LongFilterInput
+  tickets: TicketFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  publishedAt: DateTimeFilterInput
+  and: [ShowTimeFiltersInput]
+  or: [ShowTimeFiltersInput]
+  not: ShowTimeFiltersInput
+}
+
+input ShowTimeInput {
+  movie: ID
+  screen: ID
+  show_time: DateTime
+  price: Long
+  tickets: [ID]
+  publishedAt: DateTime
+}
+
+type ShowTime {
+  movie: MovieEntityResponse
+  screen: ScreenEntityResponse
+  show_time: DateTime
+  price: Long
+  tickets(
+    filters: TicketFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): TicketRelationResponseCollection
+  createdAt: DateTime
+  updatedAt: DateTime
+  publishedAt: DateTime
+}
+
+type ShowTimeEntity {
+  id: ID
+  attributes: ShowTime
+}
+
+type ShowTimeEntityResponse {
+  data: ShowTimeEntity
+}
+
+type ShowTimeEntityResponseCollection {
+  data: [ShowTimeEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type ShowTimeRelationResponseCollection {
+  data: [ShowTimeEntity!]!
+}
+
+input TicketFiltersInput {
+  id: IDFilterInput
+  show_time: ShowTimeFiltersInput
+  seats: SeatFiltersInput
+  purchase_time: DateTimeFilterInput
+  total: LongFilterInput
+  order_items: OrderItemFiltersInput
+  users_permissions_user: UsersPermissionsUserFiltersInput
+  createdAt: DateTimeFilterInput
+  updatedAt: DateTimeFilterInput
+  and: [TicketFiltersInput]
+  or: [TicketFiltersInput]
+  not: TicketFiltersInput
+}
+
+input TicketInput {
+  show_time: ID
+  seats: [ID]
+  purchase_time: DateTime
+  total: Long
+  order_items: [ID]
+  users_permissions_user: ID
+}
+
+type Ticket {
+  show_time: ShowTimeEntityResponse
+  seats(
+    filters: SeatFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): SeatRelationResponseCollection
+  purchase_time: DateTime
+  total: Long
+  order_items(
+    filters: OrderItemFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): OrderItemRelationResponseCollection
+  users_permissions_user: UsersPermissionsUserEntityResponse
+  createdAt: DateTime
+  updatedAt: DateTime
+}
+
+type TicketEntity {
+  id: ID
+  attributes: Ticket
+}
+
+type TicketEntityResponse {
+  data: TicketEntity
+}
+
+type TicketEntityResponseCollection {
+  data: [TicketEntity!]!
+  meta: ResponseCollectionMeta!
+}
+
+type TicketRelationResponseCollection {
+  data: [TicketEntity!]!
+}
+
 union GenericMorph =
   UploadFile
   | UploadFolder
@@ -1112,9 +1525,16 @@ union GenericMorph =
   | UsersPermissionsRole
   | UsersPermissionsUser
   | Actor
+  | Cinema
   | Director
+  | FoodItem
   | Movie
   | MovieGenre
+  | OrderItem
+  | Screen
+  | Seat
+  | ShowTime
+  | Ticket
 
 input FileInfoInput {
   name: String
@@ -1214,8 +1634,14 @@ type Query {
     filters: ActorFiltersInput
     pagination: PaginationArg = {}
     sort: [String] = []
-    publicationState: PublicationState = LIVE
   ): ActorEntityResponseCollection
+  cinema(id: ID): CinemaEntityResponse
+  cinemas(
+    filters: CinemaFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): CinemaEntityResponseCollection
   director(id: ID): DirectorEntityResponse
   directors(
     filters: DirectorFiltersInput
@@ -1223,6 +1649,12 @@ type Query {
     sort: [String] = []
     publicationState: PublicationState = LIVE
   ): DirectorEntityResponseCollection
+  foodItem(id: ID): FoodItemEntityResponse
+  foodItems(
+    filters: FoodItemFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): FoodItemEntityResponseCollection
   movie(id: ID): MovieEntityResponse
   movies(
     filters: MovieFiltersInput
@@ -1237,6 +1669,39 @@ type Query {
     sort: [String] = []
     publicationState: PublicationState = LIVE
   ): MovieGenreEntityResponseCollection
+  orderItem(id: ID): OrderItemEntityResponse
+  orderItems(
+    filters: OrderItemFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): OrderItemEntityResponseCollection
+  screen(id: ID): ScreenEntityResponse
+  screens(
+    filters: ScreenFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ScreenEntityResponseCollection
+  seat(id: ID): SeatEntityResponse
+  seats(
+    filters: SeatFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): SeatEntityResponseCollection
+  showTime(id: ID): ShowTimeEntityResponse
+  showTimes(
+    filters: ShowTimeFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+    publicationState: PublicationState = LIVE
+  ): ShowTimeEntityResponseCollection
+  ticket(id: ID): TicketEntityResponse
+  tickets(
+    filters: TicketFiltersInput
+    pagination: PaginationArg = {}
+    sort: [String] = []
+  ): TicketEntityResponseCollection
   me: UsersPermissionsMe
 }
 
@@ -1253,15 +1718,36 @@ type Mutation {
   createActor(data: ActorInput!): ActorEntityResponse
   updateActor(id: ID!, data: ActorInput!): ActorEntityResponse
   deleteActor(id: ID!): ActorEntityResponse
+  createCinema(data: CinemaInput!): CinemaEntityResponse
+  updateCinema(id: ID!, data: CinemaInput!): CinemaEntityResponse
+  deleteCinema(id: ID!): CinemaEntityResponse
   createDirector(data: DirectorInput!): DirectorEntityResponse
   updateDirector(id: ID!, data: DirectorInput!): DirectorEntityResponse
   deleteDirector(id: ID!): DirectorEntityResponse
+  createFoodItem(data: FoodItemInput!): FoodItemEntityResponse
+  updateFoodItem(id: ID!, data: FoodItemInput!): FoodItemEntityResponse
+  deleteFoodItem(id: ID!): FoodItemEntityResponse
   createMovie(data: MovieInput!): MovieEntityResponse
   updateMovie(id: ID!, data: MovieInput!): MovieEntityResponse
   deleteMovie(id: ID!): MovieEntityResponse
   createMovieGenre(data: MovieGenreInput!): MovieGenreEntityResponse
   updateMovieGenre(id: ID!, data: MovieGenreInput!): MovieGenreEntityResponse
   deleteMovieGenre(id: ID!): MovieGenreEntityResponse
+  createOrderItem(data: OrderItemInput!): OrderItemEntityResponse
+  updateOrderItem(id: ID!, data: OrderItemInput!): OrderItemEntityResponse
+  deleteOrderItem(id: ID!): OrderItemEntityResponse
+  createScreen(data: ScreenInput!): ScreenEntityResponse
+  updateScreen(id: ID!, data: ScreenInput!): ScreenEntityResponse
+  deleteScreen(id: ID!): ScreenEntityResponse
+  createSeat(data: SeatInput!): SeatEntityResponse
+  updateSeat(id: ID!, data: SeatInput!): SeatEntityResponse
+  deleteSeat(id: ID!): SeatEntityResponse
+  createShowTime(data: ShowTimeInput!): ShowTimeEntityResponse
+  updateShowTime(id: ID!, data: ShowTimeInput!): ShowTimeEntityResponse
+  deleteShowTime(id: ID!): ShowTimeEntityResponse
+  createTicket(data: TicketInput!): TicketEntityResponse
+  updateTicket(id: ID!, data: TicketInput!): TicketEntityResponse
+  deleteTicket(id: ID!): TicketEntityResponse
   upload(
     refId: ID
     ref: String

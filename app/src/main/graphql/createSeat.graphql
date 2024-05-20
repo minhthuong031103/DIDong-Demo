@@ -1,0 +1,9 @@
+mutation createSeat ($row: String, $number: Int) {
+    createSeat(data: {
+        seat_row: $row
+        seat_number: $number
+        screen: 10
+    }){
+        data {attributes {seat_number}}
+    }
+}

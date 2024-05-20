@@ -37,7 +37,7 @@ query MovieDetails ($id: ID){
                     data {
                         attributes {
                             name
-                            infoUrl
+                            infor_url
                             avatar {
                                 data {
                                     attributes {
@@ -52,7 +52,7 @@ query MovieDetails ($id: ID){
                     data {
                         attributes {
                             name
-                            infoUrl
+                            infor_url
                             avatar {
                                 data {
                                     attributes {
