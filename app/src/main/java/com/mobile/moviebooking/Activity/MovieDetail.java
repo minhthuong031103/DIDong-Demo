@@ -78,7 +78,7 @@ public class MovieDetail extends AppCompatActivity {
         movieId = Optional.present(getIntent().getStringExtra("movieId"));
 
         findViewById();
-        sharedPreferences = getSharedPreferences("movieInfo", MODE_PRIVATE);
+        sharedPreferences = getSharedPreferences("bookingMovieInfo", MODE_PRIVATE);
 
         loadMovieDetails();
 
@@ -91,7 +91,7 @@ public class MovieDetail extends AppCompatActivity {
             startActivity(intent);
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("movieId", String.valueOf(movieId));
+            editor.putString("movieId", movieId.getOrNull());
             editor.putString("movieName", movieName);
             editor.putString("moviePoster", moviePoster);
             editor.apply();
@@ -126,7 +126,9 @@ public class MovieDetail extends AppCompatActivity {
                             .load(moviePoster)
                             .into(poster);
                     tv_rating.setText(response.data.movie.data.attributes.review.toString());
-                    tv_numOfRatings.setText("("+response.data.movie.data.attributes.num_of_reviews+")");
+                    tv_numOfRatings.setText("(" +
+                                    String.format("%,d", response.data.movie.data.attributes.num_of_reviews)
+                                    +")");
                     movieName = response.data.movie.data.attributes.title;
                     tv_movieName.setText(movieName);
 
@@ -242,7 +244,7 @@ public class MovieDetail extends AppCompatActivity {
                     director.attributes.name.substring(0, director.attributes.name.indexOf(" ")),
                     director.attributes.name.substring(director.attributes.name.indexOf(" ")).trim(),
                     avatarUrl,
-                    director.attributes.infoUrl));
+                    director.attributes.infor_url));
         }
         directorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         CelebAdapter directorAdapter = new CelebAdapter(this, directorList);
@@ -259,7 +261,7 @@ public class MovieDetail extends AppCompatActivity {
                     actor.attributes.name.substring(0, actor.attributes.name.indexOf(" ")),
                     actor.attributes.name.substring(actor.attributes.name.indexOf(" ")).trim(),
                     avatarUrl,
-                    actor.attributes.infoUrl));
+                    actor.attributes.infor_url));
         }
         actorRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         CelebAdapter actorAdapter = new CelebAdapter(this, actorList);

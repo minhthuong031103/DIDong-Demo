@@ -43,7 +43,7 @@ public class HomePagePlayingMovieAdapter extends RecyclerView.Adapter<HomePagePl
         holder.movieName.setText(movie.getName());
         holder.movieRating.setText(String.valueOf(movie.getRating()));
         holder.Description.setText(movie.getDuration() + " • " +movie.getGenre());
-        holder.movieNumOfRating.setText(String.valueOf(movie.getRatingCount()));
+        holder.movieNumOfRating.setText("(" + String.format("%,d", movie.getRatingCount()) + ")");
 
         holder.fullLayout.setOnClickListener(v -> {
             Intent intent = new Intent(context, MovieDetail.class);

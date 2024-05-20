@@ -26,10 +26,14 @@
         </activity>
         <activity
             android:name=".Activity.Empty"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activity.Payment"
-            android:exported="false" />
+            android:exported="true">
+
+        </activity>
         <activity
             android:name=".Activity.SelectFood"
             android:exported="false" />

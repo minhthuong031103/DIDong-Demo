@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.mobile.moviebooking.Interface.IClickItemDateListener;
 import com.mobile.moviebooking.R;
 
 import java.text.SimpleDateFormat;
@@ -21,10 +22,12 @@ import java.util.Locale;
 public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder> {
     private Context context;
     private List<Date> dateList;
+    IClickItemDateListener iClickItemDateListener;
     private int selectedPosition = 0;
-    public DateAdapter(Context context, List<Date> dateList) {
+    public DateAdapter(Context context, List<Date> dateList, IClickItemDateListener iClickItemDateListener) {
         this.context = context;
         this.dateList = dateList;
+        this.iClickItemDateListener = iClickItemDateListener;
     }
     @NonNull
     @Override
@@ -52,12 +55,10 @@ public class DateAdapter extends RecyclerView.Adapter<DateAdapter.DateViewHolder
             holder.dayName.setTextColor(Color.parseColor("#000000"));
             holder.circle.setCardBackgroundColor(context.getResources().getColor(R.color.date_black));
         }
-        holder.fullLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectedPosition = position;
-                notifyDataSetChanged();
-            }
+        holder.fullLayout.setOnClickListener(v -> {
+            selectedPosition = position;
+            notifyDataSetChanged();
+            iClickItemDateListener.onClickItemDate(position);
         });
     }
 

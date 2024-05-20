@@ -91,6 +91,7 @@ public class CinemaAdapter extends BaseAdapter {
         }
         viewHolder.name.setText(cinema.getName());
         viewHolder.address.setText(cinema.getAddress());
+        viewHolder.price.setText(NumberToPrice(cinema.getPrice()) + " VND");
         Glide.with(context).load(cinema.getLogoUrl()).into(viewHolder.logo);
 
         viewHolder.section.setOnClickListener(new View.OnClickListener() {
@@ -145,5 +146,8 @@ public class CinemaAdapter extends BaseAdapter {
                 dp,
                 resources.getDisplayMetrics()
         );
+    }
+    public String NumberToPrice(int price){
+        return String.format("%,d", price).replace(',', '.');
     }
 }

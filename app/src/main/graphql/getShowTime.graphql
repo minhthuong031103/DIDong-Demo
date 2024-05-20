@@ -1,0 +1,52 @@
+query getShowTimes ($movieId: ID) {
+    showTimes(
+        filters:{
+            movie: {
+                id: {
+                    eq: $movieId
+                }
+            }
+        }
+        sort: "show_time:asc"
+        pagination: { limit: 100 }
+    ){
+        data {
+            id
+            attributes {
+                show_time
+                price
+                screen {
+                    data {
+                        id
+                        attributes {
+                            cinema {
+                                data {
+                                    id
+                                    attributes {
+                                        name
+                                        location
+                                        logo {
+                                            data {
+                                                attributes {
+                                                    url
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                movie {
+                    data {
+                        id
+                        attributes {
+                            title
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
