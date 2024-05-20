@@ -5,5 +5,5 @@
      android:state_selected="true"
 
      />
-        <item android:drawable="@color/black"/>
+        <item android:drawable="@color/card_bg"/>
 </selector>

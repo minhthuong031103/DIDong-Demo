@@ -1,6 +1,7 @@
 package com.mobile.moviebooking.Adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,25 @@ public class TicketAdapter extends RecyclerView.Adapter<TicketAdapter.TicketHold
 
     public void setData(List<Ticket> list) {
         this.tickets = list;
+//        if(tickets.size() < 1){
+//
+//        }
         notifyDataSetChanged();
+    }
+
+    public List<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void filterTicket(String month, String year) {
+        List<Ticket> filtered = new ArrayList<>();
+        for (int i = 0; i < tickets.size(); i++) {
+            String[] date = tickets.get(i).getMovieDate().split("-");
+            if (date[1].equals(month) && date[2].equals(year)) {
+                filtered.add(tickets.get(i));
+            }
+        }
+        setData(filtered);
     }
 
 

@@ -168,5 +168,11 @@
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/ivLock"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
-
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:layout_gravity="bottom"
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>
