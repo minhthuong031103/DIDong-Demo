@@ -8,7 +8,7 @@ query getShowTimes ($movieId: ID) {
             }
         }
         sort: "show_time:asc"
-        pagination: { limit: 100 }
+        pagination: { limit: 1000 }
     ){
         data {
             id
