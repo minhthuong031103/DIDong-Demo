@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="12dp"
-    android:background="@color/black">
+    android:background="@color/black"
+    android:paddingBottom="12dp"
+    >
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:cardCornerRadius="16dp"
+        android:id="@+id/cardTicket"
         android:backgroundTint="@color/card_bg"
         >
         <LinearLayout
@@ -60,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:text="Movive Time"
                         android:textSize="12sp"
-                        android:textColor="@color/white"
+                        android:textColor="@color/text_grey"
                         />
                     <TextView
                         android:id="@+id/tvMovieDate"
@@ -69,6 +71,7 @@
                         android:layout_marginLeft="4dp"
                         android:textSize="12sp"
                         android:text="Moive date"
+                        android:textStyle="bold"
                         android:textColor="@color/white"
                         />
 

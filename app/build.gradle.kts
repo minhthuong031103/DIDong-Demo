@@ -15,7 +15,7 @@ android {
 
     defaultConfig {
         applicationId = "com.mobile.moviebooking"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -58,4 +58,6 @@ dependencies {
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("me.relex:circleindicator:2.1.6")
     implementation("com.apollographql.apollo3:apollo-runtime-java:4.0.0-beta.6")
+    implementation ("net.danlew:android.joda:2.10.9.1")
+
 }

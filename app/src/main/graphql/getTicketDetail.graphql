@@ -1,25 +1,22 @@
-query GetTicket($userId: ID){
-    tickets (filters: {
-        users_permissions_user: {
-            id: {
-                eq: $userId
-            }
-        }
-    }){
+query GetTicketDetail($ticketId: ID){
+    ticket (id: $ticketId){
         data{
             id
             attributes{
-                show_time {
+                total
+                show_time{
                     data{
                         attributes{
                             show_time
                             screen{
                                 data{
                                     attributes{
+                                        screen_number
                                         cinema{
                                             data{
                                                 attributes{
                                                     location
+                                                    name
                                                 }
                                             }
                                         }
@@ -30,11 +27,18 @@ query GetTicket($userId: ID){
                                 data{
                                     attributes{
                                         title
-                                        duration
                                         poster{
                                             data{
                                                 attributes{
                                                     url
+                                                }
+                                            }
+                                        }
+                                        duration
+                                        movie_genres{
+                                            data{
+                                                attributes{
+                                                    name
                                                 }
                                             }
                                         }
@@ -44,10 +48,11 @@ query GetTicket($userId: ID){
                         }
                     }
                 }
-                users_permissions_user  {
-                    data  {
+                seats{
+                    data{
                         attributes{
-                            username
+                            seat_row
+                            seat_number
                         }
                     }
                 }

@@ -64,11 +64,10 @@
                 android:layout_marginBottom="4dp"
                 >
                 <ImageView
-                    android:id="@+id/ivMovieImage"
+                    android:id="@+id/ivMovieImageDetail"
                     android:layout_width="120dp"
                     android:layout_height="180dp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/img_1"
 
                     />
             </androidx.cardview.widget.CardView>
@@ -85,7 +84,7 @@
                     android:padding="4dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Biệt đội báo thù "
+                    android:text=" "
                     android:textStyle="bold"
                     android:textSize="18dp"
                     android:textColor="@color/black"
@@ -105,11 +104,11 @@
                         />
 
                     <TextView
-                        android:id="@+id/tvMovieTime"
+                        android:id="@+id/tvMovieDuration"
                         android:layout_marginLeft="4dp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2h19"
+                        android:text=""
                         android:textSize="12sp"
                         android:textColor="@color/black"
 
@@ -127,6 +126,7 @@
                     <ImageView
                         android:layout_width="20dp"
                         android:layout_height="20dp"
+                        android:layout_marginTop="2dp"
                         android:src="@drawable/video"
                         app:tint="@color/black" />
 
@@ -135,7 +135,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dp"
-                        android:text="Action, Adventure, Fantasy"
+
+                        android:text=""
                         android:textColor="@color/black"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -147,10 +148,11 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_marginTop="20dp"
+            android:gravity="center"
             >
         <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
             android:src="@drawable/calendar"
             app:tint="@color/black" />
             <LinearLayout
@@ -159,31 +161,23 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical"
                 >
-                <TextView
-                    android:id="@+id/tvMovieTime"
-                    android:layout_marginLeft="4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="14h10'"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
-                    />
+
 
                 <TextView
                     android:id="@+id/tvMovieDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="10/12/2022'"
+                    android:text=""
                     android:textColor="@color/black"
                     android:textSize="12sp" />
             </LinearLayout>
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="32dp"
+                android:layout_height="28dp"
                 android:src="@drawable/vector"
-                android:layout_marginLeft="60dp"
+                android:layout_marginLeft="40dp"
                 />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -191,15 +185,16 @@
                 android:orientation="vertical"
                 android:gravity="center_vertical">
                 <TextView
+                    android:id="@+id/tvMovieSeats"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
-                    android:text="D1, D2, D3, D4, E1, E2, E3, E4,
-D1, D2, D3, D4, E1, E2, E3, E4,"
+                    android:text=""
                     android:maxLines="2"
                     android:textSize="12sp"
                     android:textColor="@color/black"/>
                 <TextView
+                    android:id="@+id/tvMovieScreen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
@@ -226,15 +221,15 @@ D1, D2, D3, D4, E1, E2, E3, E4,"
             android:layout_marginBottom="4dp"
             >
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/money"/>
 
             <TextView
                 android:id="@+id/tvPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="45.000 VND"
+                android:text=""
                 android:textColor="@color/black"
                 android:padding="4dp"
                 android:textStyle="bold"
@@ -249,16 +244,17 @@ D1, D2, D3, D4, E1, E2, E3, E4,"
             android:layout_marginTop="4dp"
             >
             <ImageView
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:src="@drawable/location"
+                android:layout_marginTop="1dp"
                 android:tint="@color/black"/>
 
             <TextView
                 android:id="@+id/tvMovieLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Vincom Ocean Park CGV"
+                android:text=""
                 android:textColor="@color/black"
                 android:padding="4dp"
                 android:textStyle="bold"
@@ -280,8 +276,8 @@ D1, D2, D3, D4, E1, E2, E3, E4,"
                 android:id="@+id/tvMovieAddress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Da Ton, Gia Lam, Ha Noi"
-                android:paddingLeft="4dp"
+                android:text=""
+
                 android:textColor="@color/black"
                 android:textSize="13sp"
                 />
