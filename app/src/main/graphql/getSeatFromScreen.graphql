@@ -1,0 +1,20 @@
+query getSeatFromScreen ($id: ID) {
+    screen (id: $id) {
+        data {
+            attributes {
+                seats(
+                    pagination: {limit: 200},
+                    sort: ["seat_row:asc", "seat_number:asc"]
+                ) {
+                    data {
+                        id,
+                        attributes {
+                            seat_row,
+                            seat_number
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

@@ -1,6 +1,7 @@
 package com.mobile.moviebooking.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +26,8 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.apollographql.apollo3.api.ApolloResponse;
 import com.apollographql.apollo3.runtime.java.ApolloCallback;
 import com.apollographql.apollo3.runtime.java.ApolloClient;
+import com.ashokvarma.bottomnavigation.BottomNavigationBar;
+import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.bumptech.glide.Glide;
 import com.example.rocketreserver.MovieDetailsQuery;
 import com.example.rocketreserver.MovieHomaePageQuery;
@@ -59,6 +62,9 @@ public class HomePage extends AppCompatActivity {
     private ImageView seeAllPlayingArrow;
     private TextView seeAllComing;
     private ImageView seeAllComingArrow;
+    private ConstraintLayout loginLayout;
+    private TextView welcomeText;
+    private TextView welcomebackText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +86,25 @@ public class HomePage extends AppCompatActivity {
         setupSearchView();
 
         setupSeeAllOnClick();
+
+        checkIfLoggedIn();
+
+        navBar();
+    }
+
+    private void checkIfLoggedIn() {
+        SharedPreferences sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
+        if (!sharedPreferences.getString("token", "").isEmpty()) {
+            loginLayout.setVisibility(ConstraintLayout.INVISIBLE);
+            loginLayout.setClickable(false);
+            welcomeText.setText("Hi, "+sharedPreferences.getString("userName", "")+" \uD83D\uDC4B");
+            welcomebackText.setVisibility(TextView.VISIBLE);
+            welcomeText.setVisibility(TextView.VISIBLE);
+        } else {
+            loginLayout.setOnClickListener(v -> {
+                startActivity(new Intent(HomePage.this, SignIn.class));
+            });
+        }
     }
 
     private void setupSeeAllOnClick() {
@@ -246,5 +271,49 @@ public class HomePage extends AppCompatActivity {
         seeAllComingArrow = findViewById(R.id.imgcomingsoon);
         seeAllPlaying = findViewById(R.id.textView13);
         seeAllPlayingArrow = findViewById(R.id.imageView10);
+        loginLayout = findViewById(R.id.loginLayout);
+        welcomeText = findViewById(R.id.welcomeText);
+        welcomebackText = findViewById(R.id.textView11);
+    }
+
+    private void navBar() {
+        BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);
+        bottomNavigationBar.setBarBackgroundColor(R.color.black);
+        bottomNavigationBar.setBackgroundStyle(BottomNavigationBar.BACKGROUND_STYLE_STATIC);
+        bottomNavigationBar.setMode(BottomNavigationBar.MODE_FIXED_NO_TITLE);
+        bottomNavigationBar.setActiveColor(R.color.yello_theme);
+        bottomNavigationBar
+                .addItem(new BottomNavigationItem(R.drawable.home_lh, "Home"))
+                .addItem(new BottomNavigationItem(R.drawable.ticket_lh, "Tickets"))
+                .addItem(new BottomNavigationItem(R.drawable.movie_lh, "Movie"))
+                .addItem(new BottomNavigationItem(R.drawable.profile_lh, "Profile"))
+                .setFirstSelectedPosition(0)
+                .initialise();
+
+        bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
+            @Override
+            public void onTabSelected(int position) {
+                switch (position) {
+                    case 0:
+                        startActivity(new Intent(HomePage.this, HomePage.class));
+                        break;
+                    case 1:
+                        startActivity(new Intent(HomePage.this, MyTicket.class));
+                        break;
+                    case 2:
+                        startActivity(new Intent(HomePage.this, MovieActivity.class));
+                        break;
+                    case 3:
+                        startActivity(new Intent(HomePage.this, Profile.class));
+                        break;
+                }
+            }
+            @Override
+            public void onTabUnselected(int position) {
+            }
+            @Override
+            public void onTabReselected(int position) {
+            }
+        });
     }
 }

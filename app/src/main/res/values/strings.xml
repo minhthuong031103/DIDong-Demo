@@ -106,4 +106,8 @@
     <string name="sample_storyline">As the Avengers and their allies have continued to protect the world from threats too large for any one hero to handle, a new danger has emerged from the cosmic shadows: Thanos. A despot of intergalactic infamy, his goal is to collect all six Infinity Stones, artifacts of unimaginable power, and use them to inflict his twisted will on all of reality.</string>
     <string name="see_more">𝗦𝗲𝗲 𝗺𝗼𝗿𝗲</string>
     <string name="see_less"> 𝗦𝗲𝗲 𝗹𝗲𝘀𝘀</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
+    <string name="app_widget_description">This is an app widget description</string>
 </resources>

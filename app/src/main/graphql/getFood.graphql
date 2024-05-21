@@ -1,0 +1,19 @@
+query getFood {
+    foodItems {
+        data {
+            id
+            attributes {
+                name
+                description
+                price
+                image {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

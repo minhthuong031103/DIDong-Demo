@@ -13,13 +13,30 @@
         <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
         <!-- Customize your theme here. -->
     </style>
+
     <style name="RatingBar" parent="Theme.AppCompat">
         <item name="colorControlNormal">@color/lightGrey</item>
         <item name="colorControlActivated">@color/duskYellow</item>
     </style>
-    <style name="searchView" parent="Widget.AppCompat.SearchView" >
+
+    <style name="searchView" parent="Widget.AppCompat.SearchView">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/bh_text_white</item>
         <item name="android:textColorHint">@color/bh_text_hint</item>
+    </style>
+
+    <style name="Theme.MovieBooking.AppWidgetContainerParent" parent="@android:style/Theme.DeviceDefault">
+        <!-- Radius of the outer bound of widgets to make the rounded corners -->
+        <item name="appWidgetRadius">16dp</item>
+        <!--
+        Radius of the inner view's bound of widgets to make the rounded corners.
+        It needs to be 8dp or less than the value of appWidgetRadius
+        -->
+        <item name="appWidgetInnerRadius">8dp</item>
+    </style>
+
+    <style name="Theme.MovieBooking.AppWidgetContainer" parent="Theme.MovieBooking.AppWidgetContainerParent">
+        <!-- Apply padding to avoid the content of the widget colliding with the rounded corners -->
+        <item name="appWidgetPadding">16dp</item>
     </style>
 </resources>

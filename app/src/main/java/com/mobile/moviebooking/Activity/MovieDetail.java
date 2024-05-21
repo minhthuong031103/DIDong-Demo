@@ -94,6 +94,7 @@ public class MovieDetail extends AppCompatActivity {
             editor.putString("movieId", movieId.getOrNull());
             editor.putString("movieName", movieName);
             editor.putString("moviePoster", moviePoster);
+            editor.putString("genre", tv_genre.getText().toString());
             editor.apply();
         });
 

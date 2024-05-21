@@ -15,6 +15,8 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.apollographql.apollo3.runtime.java.ApolloClient;
+import com.example.rocketreserver.GetFoodQuery;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.mobile.moviebooking.Adapter.FoodAdapter;
 import com.mobile.moviebooking.Entity.Food;
@@ -24,7 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SelectFood extends AppCompatActivity {
-    private List<Food> foods = new ArrayList<>();
+    private static List<Food> foods = new ArrayList<>();
     private ListView lvFood;
     private int totalPayment = 0;
     private TextView tvTotalPayment;
@@ -44,7 +46,7 @@ public class SelectFood extends AppCompatActivity {
         findViewById();
 
         totalPayment = getIntent().getIntExtra("totalPayment", 0);
-        tvTotalPayment.setText(String.format("%,d", totalPayment).replace(',', '.') + " VNĐ");
+        tvTotalPayment.setText(String.format("%,d", totalPayment).replace(',', '.') + " VND");
 
         loadFood();
 
@@ -67,16 +69,30 @@ public class SelectFood extends AppCompatActivity {
     }
 
     private void loadFood() {
-        foods.add(new Food(1, "COMBO SOLO", "1 Bắp Ngọt 60oz + 1 Coke 32oz", 84000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(2, "COMBO COUPLE 2 NGĂN", "1 Bắp Ngọt 60oz + 2 Coke 32oz", 84000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(3, "COMBO SOLO", "1 Bắp Ngọt 60oz + 1 Coke 32oz", 84000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(4, "COMBO COUPLE", "1 Bắp Ngọt 60oz + 1 Coke 32oz", 84000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(5, "COMBO SOLO", "1 Bắp Ngọt 60oz + 2 Coke", 84000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(6, "CCOMBO COUPLE 2 NGĂN", "1 Bắp Ngọt 60oz + 1 Coke 32oz", 184000, "https://bit.ly/4dmeIuW"));
-        foods.add(new Food(7, "COMBO COUPLE", "1 Bắp Ngọt 60oz + 1 Coke 32oz", 284000, "https://bit.ly/4dmeIuW"));
+        String Token = "Bearer " +
+                "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNzE2MTM0ODA1LCJleHAiOjE3MTg3MjY4MDV9.vQ0PURIP7d4zQUjWaSMFUQe1Ff5jpJ_OC04rzcPlH4A";
+        ApolloClient apolloClient = new ApolloClient.Builder()
+                .serverUrl("http://77.37.47.87:1338/graphql")
+                .addHttpHeader("Authorization", Token)
+                .build();
+        apolloClient.query(new GetFoodQuery())
+                .enqueue(response -> {
+                    List<GetFoodQuery.Data1> data = response.data.foodItems.data;
+                    for (GetFoodQuery.Data1 food : data) {
+                        foods.add(new Food(
+                                    Integer.parseInt(food.id),
+                                    food.attributes.name,
+                                    food.attributes.description,
+                                    Integer.parseInt(food.attributes.price.toString()),
+                                    food.attributes.image.data.attributes.url));
+                    }
+                    runOnUiThread(() -> {
+                        FoodAdapter foodAdapter = new FoodAdapter(SelectFood.this, R.layout.food_item, foods);
+                        lvFood.setAdapter(foodAdapter);
+                    });
+                });
 
-        FoodAdapter foodAdapter = new FoodAdapter(this, R.layout.food_item, foods);
-        lvFood.setAdapter(foodAdapter);
+
     }
     public void updateTotalPayment() {
         totalPayment = getIntent().getIntExtra("totalPayment", 0);
@@ -84,5 +100,15 @@ public class SelectFood extends AppCompatActivity {
             totalPayment += food.getPrice() * food.getQuantity();
         }
         tvTotalPayment.setText(String.format("%,d", totalPayment).replace(',', '.') + " VNĐ");
+    }
+
+    public static List<Food> getSelectedFoods() {
+        List<Food> selectedFoods = new ArrayList<>();
+        for (Food food : foods) {
+            if (food.getQuantity() > 0) {
+                selectedFoods.add(food);
+            }
+        }
+        return selectedFoods;
     }
 }

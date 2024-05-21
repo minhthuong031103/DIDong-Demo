@@ -1,0 +1,20 @@
+query getReservedSeat ($showTimeID: ID) {
+    tickets (
+        filters: {
+            show_time: {
+                id: {eq: $showTimeID}
+            }
+        }
+        pagination: {limit: 200}
+    ){
+        data {
+            attributes {
+                seats {
+                    data {
+                        id
+                    }
+                }
+            }
+        }
+    }
+}

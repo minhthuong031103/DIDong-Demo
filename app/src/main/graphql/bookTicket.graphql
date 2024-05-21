@@ -1,0 +1,12 @@
+mutation bookTicket ($showtimeId: ID, $seats: [ID], $total: Long, $userID: ID) {
+    createTicket(data: {
+        show_time: $showtimeId
+        seats: $seats
+        total: $total
+        users_permissions_user: $userID
+    }) {
+        data {
+            id
+        }
+    }
+}

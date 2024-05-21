@@ -76,6 +76,7 @@
             app:queryBackground="@android:color/transparent"
             app:queryHint="Search cinema..."
             app:searchIcon="@drawable/akar_icons_search" />
+
         <ListView
             android:id="@+id/lv_cinema"
             android:layout_width="match_parent"

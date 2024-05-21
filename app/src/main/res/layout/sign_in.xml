@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/black"
-    android:padding="10dp"
     tools:context=".Activity.SignIn">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -15,6 +14,7 @@
         app:layout_constraintStart_toStartOf="parent"
         android:id="@+id/backLayout">
         <ImageView
+            android:layout_margin="16dp"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/img_2"
@@ -22,9 +22,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
+            android:layout_marginTop="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="28sp"
+            android:textSize="26sp"
+            android:fontFamily="@font/sfpro_medium"
+            android:textStyle="bold"
+            android:letterSpacing="0.05"
             android:text="@string/sign_in"
             android:textColor="@color/white"
             app:layout_constraintTop_toTopOf="parent"
@@ -35,6 +39,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
+        android:layout_marginHorizontal="16dp"
         android:id="@+id/signInLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/backLayout"
@@ -42,18 +47,23 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:id="@+id/lay1"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            ><com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/username"
-            android:padding="20dp"
-            android:background="@drawable/edit_text_background"
-            android:id="@+id/gddn_txtusername"/>
+            app:boxStrokeColor="@android:color/transparent"
+            app:hintTextColor="@color/date_black"
+            android:textColorHint="@color/date_black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/username"
+                android:textSize="16sp"
+                android:textColorHint="@color/card_date_black"
+                android:textColor="@color/black"
+                android:background="@drawable/edit_text_background"
+                android:id="@+id/gddn_txtusername"
+                />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
@@ -61,19 +71,24 @@
             android:layout_marginVertical="12dp"
             android:id="@+id/lay2"
             app:endIconMode="password_toggle"
+            app:endIconTint="@color/date_black"
             app:layout_constraintTop_toBottomOf="@id/lay1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toTopOf="@id/signinBtn"
-            ><com.google.android.material.textfield.TextInputEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/gddn_txtpass"
-            android:inputType="textPassword"
-            android:hint="@string/password"
-            android:padding="20dp"
-            android:background="@drawable/edit_text_background"
-
+            app:boxStrokeColor="@android:color/transparent"
+            app:hintTextColor="@color/date_black"
+            android:textColorHint="@color/date_black"
+            app:boxBackgroundColor="@color/date_black">
+            <com.google.android.material.textfield.TextInputEditText
+                android:layout_width="match_parent"
+                android:textColorHint="@color/card_date_black"
+                android:textColor="@color/black"
+                android:layout_height="wrap_content"
+                android:id="@+id/gddn_txtpass"
+                android:inputType="textPassword"
+                android:hint="@string/password"
+                android:background="@drawable/edit_text_background"
             />
         </com.google.android.material.textfield.TextInputLayout>
         <com.google.android.material.button.MaterialButton
@@ -139,6 +154,8 @@
             app:layout_constraintTop_toTopOf="parent"
             />
         <com.google.android.material.button.MaterialButton
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/bh_text_white"
             android:layout_width="match_parent"
             app:layout_constraintTop_toBottomOf="@+id/textView"
             android:layout_height="56dp"
@@ -158,19 +175,21 @@
             android:backgroundTint="#1A1A1A"
             android:textSize="16sp"
             app:cornerRadius="24dp"
-            />
+            android:layout_marginHorizontal="16dp"
+            android:textColor="@color/bh_text_white"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/by_sign_in_or_sign_up_you_agree_to_our_terms_of_service_and_privac_y_policy"
+            android:textAlignment="center"
             android:textColor="@color/text_grey"
             android:textSize="12sp"
-            android:layout_marginTop="10dp"
-            android:textAlignment="center"
-            app:layout_goneMarginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@+id/googleBtn"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/by_sign_in_or_sign_up_you_agree_to_our_terms_of_service_and_privac_y_policy"
+            app:layout_constraintTop_toBottomOf="@+id/googleBtn"
 
-            />
+            app:layout_goneMarginTop="30dp" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
