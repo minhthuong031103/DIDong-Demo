@@ -44,17 +44,12 @@
     android:layout_marginTop="8dp"
     android:gravity="center"
     >
-    <ImageView
-        android:id="@+id/phoneIcon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@drawable/phone"
-       />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="0123456789"
-        android:id="@+id/tvPhone"
+        android:text="email"
+        android:id="@+id/tvMail"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:layout_marginLeft="8dp"
@@ -69,46 +64,61 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/avatar" />
 
-        <ImageView
-            android:id="@+id/ivTicket"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="80dp"
-            android:src="@drawable/ticket2"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvUserName" />
-
-        <TextView
-            android:layout_width="wrap_content"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:text="My Tickets"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            app:layout_constraintStart_toEndOf="@+id/ivTicket"
-            app:layout_constraintTop_toTopOf="@+id/ivTicket"
-            app:layout_constraintBottom_toBottomOf="@+id/ivTicket"/>
-        <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@drawable/arrow_right"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/ivTicket"
-            app:layout_constraintBottom_toBottomOf="@id/ivTicket"/>
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="80dp"
+            app:layout_constraintTop_toBottomOf="@+id/tvUserName"
+            android:id="@+id/ticketLayout"
+            >
+            <ImageView
+                android:id="@+id/ivTicket"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ticket2"
+             />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:text="My Tickets"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/ivTicket"
+                app:layout_constraintTop_toTopOf="@+id/ivTicket"
+                app:layout_constraintBottom_toBottomOf="@+id/ivTicket"/>
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivTicket"
+                app:layout_constraintBottom_toBottomOf="@id/ivTicket"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:src="@drawable/line"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivTicket"/>
+            app:layout_constraintTop_toBottomOf="@+id/ticketLayout"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ticketLayout"
+            android:layout_marginTop="30dp"
+            android:id="@+id/paymentLayout"
+            >
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/shopping_cart"
             android:id="@+id/ivCart"
-            app:layout_constraintStart_toStartOf="@+id/ivTicket"
-            app:layout_constraintTop_toBottomOf="@+id/ivTicket"
+            app:layout_constraintStart_toStartOf="parent"
+
             android:layout_marginTop="40dp"/>
         <ImageView
             android:layout_width="24dp"
@@ -117,6 +127,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/ivCart"
             app:layout_constraintBottom_toBottomOf="@id/ivCart"/>
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -127,22 +138,28 @@
             app:layout_constraintStart_toEndOf="@+id/ivCart"
             app:layout_constraintTop_toTopOf="@+id/ivCart"
             app:layout_constraintBottom_toBottomOf="@+id/ivCart"/>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:src="@drawable/line"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivCart"/>
+            app:layout_constraintTop_toBottomOf="@+id/paymentLayout"/>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/paymentLayout"
+            android:layout_marginTop="30dp"
+            android:id="@+id/changePasswordLayout"
+            >
         <ImageView
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/lock"
             android:id="@+id/ivLock"
-            app:layout_constraintStart_toStartOf="@+id/ivCart"
-            app:layout_constraintTop_toBottomOf="@+id/ivCart"
-            android:layout_marginTop="40dp"/>
+            app:layout_constraintStart_toStartOf="parent" />
         <ImageView
             android:layout_width="24dp"
             android:layout_height="24dp"
@@ -160,13 +177,47 @@
             app:layout_constraintStart_toEndOf="@+id/ivLock"
             app:layout_constraintTop_toTopOf="@+id/ivLock"
             app:layout_constraintBottom_toBottomOf="@+id/ivLock"/>
-
+        </androidx.constraintlayout.widget.ConstraintLayout>
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="1.5dp"
             android:src="@drawable/line"
             android:layout_marginTop="16dp"
-            app:layout_constraintTop_toBottomOf="@+id/ivLock"/>
+            app:layout_constraintTop_toBottomOf="@+id/changePasswordLayout"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changePasswordLayout"
+            android:layout_marginTop="30dp"
+            android:id="@+id/logoutLayout"
+            >
+            <ImageView
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:src="@drawable/logout_lh"
+                android:tint="@color/white"
+                android:id="@+id/ivLogout"
+                app:layout_constraintStart_toStartOf="parent" />
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/arrow_right"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/ivLogout"
+                app:layout_constraintBottom_toBottomOf="@id/ivLogout"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="29dp"
+                android:text="Logout"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                app:layout_constraintStart_toEndOf="@+id/ivLogout"
+                app:layout_constraintTop_toTopOf="@+id/ivLogout"
+                app:layout_constraintBottom_toBottomOf="@+id/ivLogout"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <com.ashokvarma.bottomnavigation.BottomNavigationBar
         android:layout_gravity="bottom"

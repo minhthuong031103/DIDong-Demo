@@ -31,7 +31,8 @@ public class MovieActivity extends AppCompatActivity {
     private FrameLayout frameLayout;
 
     private TabLayout tabLayout;
-    List<Movie> listMovie = new ArrayList<>();
+    List<Movie> listNowPlaying = new ArrayList<>();
+    List<Movie> listUpComing = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,9 +47,21 @@ public class MovieActivity extends AppCompatActivity {
 
         findView();
 
+        loadData();
+
         frameConfig();
 
         navBar();
+    }
+
+    private void loadData() {
+        Movie movie1 = new Movie();
+        movie1.setName("Movie 1");
+        listNowPlaying.add(movie1);
+
+        Movie movie2 = new Movie();
+        movie2.setName("Movie 2");
+        listNowPlaying.add(movie2);
     }
 
     private void frameConfig() {

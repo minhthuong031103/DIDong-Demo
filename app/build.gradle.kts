@@ -1,5 +1,12 @@
 plugins {
     alias(libs.plugins.androidApplication)
+    id("com.apollographql.apollo3").version("4.0.0-beta.6")
+}
+apollo {
+    service("service") {
+        generateKotlinModels.set(false)
+        packageName.set("com.example.rocketreserver")
+    }
 }
 
 android {
@@ -50,4 +57,5 @@ dependencies {
     implementation ("com.ashokvarma.android:bottom-navigation-bar:2.2.0")
     implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("me.relex:circleindicator:2.1.6")
+    implementation("com.apollographql.apollo3:apollo-runtime-java:4.0.0-beta.6")
 }

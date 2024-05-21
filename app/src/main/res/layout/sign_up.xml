@@ -50,8 +50,8 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/phone_number"
-            android:id="@+id/phoneNumberET"
+            android:hint="Email"
+            android:id="@+id/etEmail"
             android:textColor="@color/white"
             android:backgroundTint="@color/white"
             android:textColorHint="@color/white"
@@ -59,19 +59,63 @@
             android:paddingBottom="30dp"
             android:layout_marginBottom="30dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/continueBtn"
-            android:inputType="phone" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:inputType="textEmailAddress" />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/profile_lh"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/etUserName"
+            android:layout_marginTop="8dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="User name"
+            android:id="@+id/etUserName"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+            android:paddingStart="40dp"
+            android:paddingBottom="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etEmail"
+            android:inputType="textPersonName" />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:src="@drawable/lock"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/etPassword"
+            android:layout_marginTop="8dp"
+            />
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:id="@+id/etPassword"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/white"
+            android:textColorHint="@color/white"
+            android:paddingStart="40dp"
+            android:paddingBottom="30dp"
+            android:layout_marginBottom="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/etUserName"
+            android:inputType="textPassword" />
         <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:layout_height="56dp"
-            android:text="@string/continue_text"
-            android:id="@+id/continueBtn"
+            android:text="Sign Up"
+            android:id="@+id/btnSignUp"
             android:backgroundTint="@color/yello_theme"
             android:textColor="@color/black"
             android:textSize="16sp"
             app:cornerRadius="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/etPassword"
             />
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
