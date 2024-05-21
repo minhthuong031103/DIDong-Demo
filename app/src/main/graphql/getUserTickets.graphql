@@ -1,0 +1,42 @@
+query getTicket($userId: ID){
+    tickets (filters: {
+        users_permissions_user: {
+            id: {
+                eq: $userId
+            }
+        }
+    }){
+        data{
+            id
+            attributes{
+                show_time {
+                    data{
+                        attributes{
+                            movie{
+                                data{
+                                    attributes{
+                                        title
+                                        poster{
+                                            data{
+                                                attributes{
+                                                    url
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                users_permissions_user  {
+                    data  {
+                        attributes{
+                            username
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

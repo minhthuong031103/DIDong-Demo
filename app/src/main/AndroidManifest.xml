@@ -25,6 +25,18 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".Activity.TicketHistory"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.Profile"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.TicketDetail"
+            android:exported="true" />
+        <activity
+            android:name=".Activity.MyTicket"
+            android:exported="true" />
+        <activity
             android:name=".Activity.Empty"
             android:exported="true">
 
@@ -55,7 +67,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.SignUp"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.SignIn"
             android:exported="false" />

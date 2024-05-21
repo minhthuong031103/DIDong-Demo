@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.androidApplication)
-
     id("com.apollographql.apollo3").version("4.0.0-beta.6")
 }
 apollo {
@@ -9,6 +8,7 @@ apollo {
         packageName.set("com.example.rocketreserver")
     }
 }
+
 android {
     namespace = "com.mobile.moviebooking"
     compileSdk = 34
@@ -50,11 +50,12 @@ dependencies {
 
     implementation("androidx.fragment:fragment:1.6.2")
     implementation("com.github.FlyingPumba:SimpleRatingBar:v0.1.5")
+    implementation("com.borjabravo:readmoretextview:2.1.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
     implementation("com.github.bumptech.glide:glide:4.16.0")
     implementation("com.otaliastudios:zoomlayout:1.9.0")
-
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.1")
-    implementation("com.apollographql.apollo3:apollo-runtime-java:4.0.0-beta.6")
+    implementation ("com.ashokvarma.android:bottom-navigation-bar:2.2.0")
+    implementation ("androidx.swiperefreshlayout:swiperefreshlayout:1.2.0-alpha01")
     implementation("me.relex:circleindicator:2.1.6")
+    implementation("com.apollographql.apollo3:apollo-runtime-java:4.0.0-beta.6")
 }

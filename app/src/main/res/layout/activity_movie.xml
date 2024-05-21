@@ -12,22 +12,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="12dp"
+        android:paddingBottom="60dp"
+
+
         >
         <com.google.android.material.card.MaterialCardView
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="40dp"
             android:layout_margin="10dp"
             android:layout_gravity="center"
-            app:cardCornerRadius="12dp">
+            app:cardCornerRadius="10dp">
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tlMovie"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:tabBackground="@drawable/tab_color_selector"
-            app:tabIndicatorColor="@color/yello_theme"
-            app:tabSelectedTextColor="@color/black"
-            app:tabTextColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:tabBackground="@drawable/tab_color_selector"
+                app:tabIndicatorColor="@color/yello_theme"
+                app:tabSelectedTextColor="@color/black"
+                android:backgroundTint="@color/black"
+                app:tabTextColor="@color/white"
             >
             <com.google.android.material.tabs.TabItem
                 android:layout_width="wrap_content"
@@ -51,5 +54,11 @@
         </FrameLayout>
 
     </LinearLayout>
-
+    <com.ashokvarma.bottomnavigation.BottomNavigationBar
+        android:layout_gravity="bottom"
+        android:id="@+id/bottom_navigation_bar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

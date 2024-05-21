@@ -2,99 +2,60 @@ package com.mobile.moviebooking.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.FrameLayout;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
-import com.google.android.material.tabs.TabLayout;
-import com.mobile.moviebooking.Adapter.MovieAdapter;
-import com.mobile.moviebooking.Entity.Movie;
-import com.mobile.moviebooking.Fragment.NowPlayingFragment;
-import com.mobile.moviebooking.Fragment.UpComingFragment;
+import com.google.android.material.card.MaterialCardView;
+import com.mobile.moviebooking.Adapter.TicketAdapter;
+import com.mobile.moviebooking.Entity.Ticket;
 import com.mobile.moviebooking.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MovieActivity extends AppCompatActivity {
+public class MyTicket extends AppCompatActivity {
+
+    private TicketAdapter ticketAdapter;
     private RecyclerView recyclerView;
-    private MovieAdapter movieAdapter;
-
-    private FrameLayout frameLayout;
-
-    private TabLayout tabLayout;
-    List<Movie> listNowPlaying = new ArrayList<>();
-    List<Movie> listUpComing = new ArrayList<>();
+    private List<Ticket> listTicket = new ArrayList<Ticket>();
+    private MaterialCardView emptyTicket;
+    private MaterialCardView historyTicket;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_movie);
+        setContentView(R.layout.activity_my_ticket);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
 
-        findView();
-
-        loadData();
-
-        frameConfig();
-
+        findViewById();
+        loadTicket();
         navBar();
+        toHistoryTicket();
+
     }
 
-    private void loadData() {
-        Movie movie1 = new Movie();
-        movie1.setName("Movie 1");
-        listNowPlaying.add(movie1);
-
-        Movie movie2 = new Movie();
-        movie2.setName("Movie 2");
-        listNowPlaying.add(movie2);
-    }
-
-    private void frameConfig() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.flMovie, new NowPlayingFragment()).commit();
-
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+    private void toHistoryTicket() {
+        historyTicket.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                Fragment selectedFragment = null;
-                switch (tab.getPosition()) {
-                    case 0:
-                        selectedFragment = new NowPlayingFragment();
-                        break;
-                    case 1:
-                        selectedFragment = new UpComingFragment();
-                        break;
-                }
-                getSupportFragmentManager().beginTransaction().replace(R.id.flMovie, selectedFragment).commit();
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
+            public void onClick(View v) {
+                Intent intent = new Intent(MyTicket.this, TicketHistory.class);
+                startActivity(intent);
             }
         });
-    }
-
-    private void findView() {
-        frameLayout = (FrameLayout) findViewById(R.id.flMovie);
-        tabLayout = (TabLayout) findViewById(R.id.tlMovie);
     }
 
     private void navBar() {
@@ -108,7 +69,7 @@ public class MovieActivity extends AppCompatActivity {
                 .addItem(new BottomNavigationItem(R.drawable.ticket_lh, "Tickets"))
                 .addItem(new BottomNavigationItem(R.drawable.movie_lh, "Movie"))
                 .addItem(new BottomNavigationItem(R.drawable.profile_lh, "Profile"))
-                .setFirstSelectedPosition(2)
+                .setFirstSelectedPosition(1)
                 .initialise();
 
         bottomNavigationBar.setTabSelectedListener(new BottomNavigationBar.OnTabSelectedListener(){
@@ -116,16 +77,16 @@ public class MovieActivity extends AppCompatActivity {
             public void onTabSelected(int position) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(MovieActivity.this, MainActivity.class));
+                        startActivity(new Intent(MyTicket.this, MainActivity.class));
                         break;
                     case 1:
-                        startActivity(new Intent(MovieActivity.this, MyTicket.class));
+                        startActivity(new Intent(MyTicket.this, MyTicket.class));
                         break;
                     case 2:
-                        startActivity(new Intent(MovieActivity.this, MovieActivity.class));
+                        startActivity(new Intent(MyTicket.this, MovieActivity.class));
                         break;
                     case 3:
-                        startActivity(new Intent(MovieActivity.this, Profile.class));
+                        startActivity(new Intent(MyTicket.this, Profile.class));
                         break;
                 }
             }
@@ -136,5 +97,40 @@ public class MovieActivity extends AppCompatActivity {
             public void onTabReselected(int position) {
             }
         });
+    }
+
+    private void loadTicket() {
+        if(!this.listTicket.isEmpty())
+            this.listTicket.clear();
+
+        for (int i = 0; i < 0; i++) {
+            Ticket ticket = new Ticket();
+            ticket.setMovieDate("2021-10-10");
+            ticket.setMovieLocation("Cinestar Thủ Đức");
+            ticket.setMovieName("Phim ko hay xoa app");
+            ticket.setMovieTime("20:00");
+            ticket.setMovieImgUrl("https://m.media-amazon.com/images/I/91+od0A3itL._AC_UF1000,1000_QL80_.jpg");
+            listTicket.add(ticket);
+        }
+
+        if(!this.listTicket.isEmpty()) {
+            emptyTicket.setVisibility(View.GONE);
+            ticketAdapter.setData(listTicket);
+        }
+        else {
+            emptyTicket.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private void findViewById() {
+        ticketAdapter = new TicketAdapter(this);
+        ticketAdapter.setData(listTicket);
+
+        emptyTicket = findViewById(R.id.emptyTicket);
+        historyTicket = findViewById(R.id.cardHistory);
+
+        recyclerView = findViewById(R.id.rvMyTicket);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(ticketAdapter);
     }
 }
