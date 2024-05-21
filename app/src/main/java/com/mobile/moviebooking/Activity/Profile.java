@@ -50,7 +50,7 @@ public class Profile extends AppCompatActivity {
             public void onTabSelected(int position) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(Profile.this, MainActivity.class));
+                        startActivity(new Intent(Profile.this, HomePage.class));
                         break;
                     case 1:
                         startActivity(new Intent(Profile.this, MyTicket.class));

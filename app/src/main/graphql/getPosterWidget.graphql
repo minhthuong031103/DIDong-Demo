@@ -1,0 +1,21 @@
+query getPosterWidget {
+    movies (sort: "review:desc"
+        filters: {
+            is_showing: {eq: true}
+        }
+    ) {
+        data {
+            id
+            attributes
+            {
+                poster {
+                    data {
+                        attributes {
+                            url
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

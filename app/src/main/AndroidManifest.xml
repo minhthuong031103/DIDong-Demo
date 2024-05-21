@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
 
     <application
         android:allowBackup="true"
@@ -15,6 +18,21 @@
         android:theme="@style/Theme.MovieBooking"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+        <receiver
+            android:name=".Widget.AppWidget"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/app_widget_info" />
+        </receiver>
+        <receiver
+            android:name=".Widget.WidgetService"
+            android:enabled="true" />
+
         <activity
             android:name=".Activity.HomePage"
             android:exported="true">
@@ -38,14 +56,10 @@
             android:exported="true" />
         <activity
             android:name=".Activity.Empty"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Activity.Payment"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Activity.SelectFood"
             android:exported="false" />
@@ -57,8 +71,7 @@
             android:exported="false" />
         <activity
             android:name=".Activity.MovieDetail"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".Activity.MovieActivity"
             android:exported="true" />
@@ -70,7 +83,7 @@
             android:exported="true" />
         <activity
             android:name=".Activity.SignIn"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".Activity.AddUserName"
             android:exported="true" />
