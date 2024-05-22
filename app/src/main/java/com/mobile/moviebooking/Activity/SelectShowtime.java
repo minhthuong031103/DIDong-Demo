@@ -167,17 +167,18 @@ public class SelectShowtime extends AppCompatActivity {
                     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
                     sdf.setTimeZone(TimeZone.getTimeZone("UTC+7"));
                     for (GetShowTimesQuery.Data1 showtime : ListShowTime) {
-                        Log.d("test", showtime.attributes.show_time.toString());
                         try {
                             Date date = sdf.parse(showtime.attributes.show_time.toString());
-                            if (dates.size() >= 1) {
-                                Date lastDateInList = dates.get(dates.size()-1);
-                                if (date.getYear() == lastDateInList.getYear()
-                                        && date.getMonth() == lastDateInList.getMonth()
-                                        && date.getDate() == lastDateInList.getDate())
-                                    continue;
+                            if (date.compareTo(new Date()) >= 0){
+                                if (dates.size() >= 1) {
+                                    Date lastDateInList = dates.get(dates.size()-1);
+                                    if (date.getYear() == lastDateInList.getYear()
+                                            && date.getMonth() == lastDateInList.getMonth()
+                                            && date.getDate() == lastDateInList.getDate())
+                                        continue;
+                                }
+                                dates.add(date);
                             }
-                            dates.add(date);
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }
@@ -186,7 +187,8 @@ public class SelectShowtime extends AppCompatActivity {
                         dateRecyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
                         DateAdapter dateAdapter = new DateAdapter(this, dates, position -> loadCinema(dates.get(position)));
                         dateRecyclerView.setAdapter(dateAdapter);
-                        loadCinema(dates.get(0));
+                        if (dates.size() > 0)
+                            loadCinema(dates.get(0));
                     });
         });
 
