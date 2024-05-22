@@ -21,15 +21,20 @@ import com.example.rocketreserver.MovieHomaePageQuery;
 import com.mobile.moviebooking.Entity.Ticket;
 import com.mobile.moviebooking.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class TicketDetail extends AppCompatActivity {
     private ImageView ivMovieImage;
     private TextView tvMovieName, tvMovieDuration, tvMovieGenre,
-            tvMovieDate, tvMovieSeats, tvPrice, tvMovieLocation, tvMovieAddress, tvMovieScreen;
+            tvMovieDate, tvMovieSeats, tvPrice, tvMovieLocation, tvMovieAddress, tvMovieScreen, tvPopcorn;
+    private ImageView backMyTicket;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,22 +92,49 @@ public class TicketDetail extends AppCompatActivity {
 
             String movieTime = ticket.attributes.show_time.data.attributes.show_time.toString();
 
-            String formattedDateTime = formatDateTime(movieTime);
-            newTicket.setMovieDate(formattedDateTime);
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+            sdf.setTimeZone(TimeZone.getTimeZone("UTC+7"));
+            Date date = null;
+            try {
+                date = sdf.parse(movieTime);
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
+            String dateFinal = new SimpleDateFormat("HH:mm • dd.MM.yyyy").format(date);
+
+            newTicket.setMovieDate(dateFinal);
+
+            String food = "";
+            List<GetTicketDetailQuery.Data2> foods = ticket.attributes.order_items.data;
+
+            for(GetTicketDetailQuery.Data2 foodItem: foods) {
+                String quant = "x" + String.valueOf(foodItem.attributes.quantity) +" ";
+                String item = String.valueOf(foodItem.attributes.food_item.data.attributes.name);
+                if (foodItem != foods.get(foods.size()-1)){
+                    item += "\n";
+                }
+
+                food += (quant + item);
+            }
+            if (food.length() == 0) {
+                food = "No food ordered";
+            }
+
+            newTicket.setFood(food);
 
             newTicket.setMovieAddress(ticket.attributes.show_time.data.attributes.screen.data.attributes
                     .cinema.data.attributes.location);
 
             String movieGenre = "";
-            List<GetTicketDetailQuery.Data7> movie_genres = ticket.attributes.show_time.data.attributes.movie.data.attributes.movie_genres.data;
-            for (GetTicketDetailQuery.Data7 genre: movie_genres) {
+            List<GetTicketDetailQuery.Data9> movie_genres = ticket.attributes.show_time.data.attributes.movie.data.attributes.movie_genres.data;
+            for (GetTicketDetailQuery.Data9 genre: movie_genres) {
                 movieGenre += genre.attributes.name + ", ";
             }
             newTicket.setMovieGenres(movieGenre.substring(0, movieGenre.length()-2));
 
             String ticketSeats = "";
-            List<GetTicketDetailQuery.Data8> ticket_seats = ticket.attributes.seats.data;
-            for(GetTicketDetailQuery.Data8 seat: ticket_seats) {
+            List<GetTicketDetailQuery.Data10> ticket_seats = ticket.attributes.seats.data;
+            for(GetTicketDetailQuery.Data10 seat: ticket_seats) {
                 System.out.println(seat.attributes.seat_row + seat.attributes.seat_number);
                 ticketSeats += String.valueOf(seat.attributes.seat_row)+ String.valueOf(seat.attributes.seat_number) + ", ";
             }
@@ -127,6 +159,7 @@ public class TicketDetail extends AppCompatActivity {
                     tvMovieSeats.setText(newTicket.getMovieSeat());
                     tvPrice.setText(newTicket.getTicketPrice());
                     tvMovieScreen.setText("Screen " + newTicket.getTicketScreen());
+                    tvPopcorn.setText(newTicket.getFood());
                     Glide.with(this).load(newTicket.getMovieImgUrl()).into(ivMovieImage);
                 });
 
@@ -185,5 +218,12 @@ public class TicketDetail extends AppCompatActivity {
         tvPrice = findViewById(R.id.tvPrice);
         ivMovieImage = findViewById(R.id.ivMovieImageDetail);
         tvMovieScreen = findViewById(R.id.tvMovieScreen);
+        tvPopcorn = findViewById(R.id.tvPopcorn);
+
+        backMyTicket = findViewById(R.id.backMyTicket);
+
+        backMyTicket.setOnClickListener(v -> {
+            finish();
+        });
     }
 }

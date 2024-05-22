@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -22,6 +23,8 @@ import com.mobile.moviebooking.R;
 public class SignIn extends AppCompatActivity {
     private MaterialButton signinBtn;
     private TextInputEditText etUsername, etPassword;
+    private ImageView backBtnSignIn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -43,6 +46,13 @@ public class SignIn extends AppCompatActivity {
         signinBtn = findViewById(R.id.signinBtn);
         etUsername = findViewById(R.id.gddn_txtusername);
         etPassword = findViewById(R.id.gddn_txtpass);
+        backBtnSignIn = findViewById(R.id.backBtnSignIn);
+
+
+
+        backBtnSignIn.setOnClickListener(v -> {
+            finish();
+        });
     }
 
     private void onLogin() {

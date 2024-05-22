@@ -32,6 +32,8 @@ import com.mobile.moviebooking.Adapter.TicketAdapter;
 import com.mobile.moviebooking.Entity.Ticket;
 import com.mobile.moviebooking.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -39,7 +41,9 @@ import java.time.Year;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class TicketHistory extends AppCompatActivity {
     private MaterialButton btnFilter;
@@ -97,13 +101,16 @@ public class TicketHistory extends AppCompatActivity {
         String token = "Bearer " + userInfo.getString("jwt", "893a13fa53a2ff80efe5b37c1fd5942434971882b53655b0542e4ccdb7ab76bbd28fbbac96939f04f01bdb1c098492f91d908e8dc38b3092f348bf2d190ffa91354f451a38afadd4063f6fcbb256e84a7b9ad7e7c8775be390ba32a68d2c393bca77d6a2031dfd3358a9760dad48ca115b7086103cd355c140aa99451fd510c0");
         String userId = userInfo.getString("userID", "1");
 
+        System.out.println("Token: " + token);
+        System.out.println("UserID: " + userId);
+
 
         ApolloClient apolloClient = new ApolloClient.Builder()
                 .serverUrl("http://77.37.47.87:1338/graphql")
                 .addHttpHeader("Authorization", token)
                 .build();
 
-        Optional<String> id = Optional.present("6");
+        Optional<String> id = Optional.present(userId);
 
         GetTicketQuery getTicketQuery = new GetTicketQuery(id);
 
@@ -118,6 +125,7 @@ public class TicketHistory extends AppCompatActivity {
             List<GetTicketQuery.Data1> tickets = apolloResponse.data.tickets.data;
             for (GetTicketQuery.Data1 ticket : tickets) {
                 Ticket newTicket = new Ticket();
+                newTicket.setId(ticket.id);
                 newTicket.setMovieName(ticket.attributes.show_time.data.attributes.movie.data.attributes.title);
                 newTicket.setMovieLocation(ticket.attributes.show_time.data.attributes.screen.data.attributes
                         .cinema.data.attributes.location);
@@ -130,12 +138,20 @@ public class TicketHistory extends AppCompatActivity {
 
                 String movieTime = ticket.attributes.show_time.data.attributes.show_time.toString();
 
-                String formattedDateTime = formatDateTime(movieTime);
-                newTicket.setMovieDate(formattedDateTime);
 
-                String modifiedString = removeCharacterAtPosition(formattedDateTime, 6);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX");
+                sdf.setTimeZone(TimeZone.getTimeZone("UTC+7"));
+                Date date = null;
+                try {
+                    date = sdf.parse(movieTime);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
+                String dateFinal = new SimpleDateFormat("HH:mm • dd.MM.yyyy").format(date);
+                newTicket.setMovieDate(dateFinal);
 
-                if (isDateTimeSmaller(modifiedString)) {
+
+                if (isDateTimeSmaller(date)) {
                     listTicket.add(newTicket);
                 }
             }
@@ -161,16 +177,11 @@ public class TicketHistory extends AppCompatActivity {
         return str.substring(0, position - 1) + str.substring(position + 1);
     }
 
-    private boolean isDateTimeSmaller(String formattedDateTime) {
-        // Parse the formatted datetime string into LocalDateTime object
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("H:mm dd-MM-yyyy");
-        LocalDateTime formattedDateTimeObj = LocalDateTime.parse(formattedDateTime, formatter);
-
-        // Get the current datetime
-        LocalDateTime currentDateTime = LocalDateTime.now();
+    private boolean isDateTimeSmaller(Date date) {
+        Date currentDateTime = new Date();
 
         // Compare the datetimes
-        return formattedDateTimeObj.isBefore(currentDateTime);
+        return date.before(currentDateTime);
     }
 
     private String formatDateTime(String dateTimeString) {
@@ -258,7 +269,7 @@ public class TicketHistory extends AppCompatActivity {
         for (int i = 0; i < listTicket.size(); i++) {
 
             String dateStr = listTicket.get(i).getMovieDate().substring(8);
-            String[] date = dateStr.split("-");
+            String[] date = dateStr.split("\\.");
 
             System.out.println(date[1] + " " + date[2] + " " + month + " " + year);
 

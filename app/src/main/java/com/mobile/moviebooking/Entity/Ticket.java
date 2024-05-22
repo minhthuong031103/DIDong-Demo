@@ -14,6 +14,16 @@ public class Ticket implements Serializable {
     public String ticketPrice;
     public String ticketScreen;
 
+    public String food;
+
+    public String getFood() {
+        return food;
+    }
+
+    public void setFood(String food) {
+        this.food = food;
+    }
+
     public String getTicketScreen() {
         return ticketScreen;
     }

@@ -15,7 +15,7 @@
         android:layout_margin="12dp"
         >
         <ImageView
-            android:id="@+id/backBtn"
+            android:id="@+id/backMyTicket"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:src="@drawable/arrow_left"
@@ -282,15 +282,43 @@
                 android:textSize="13sp"
                 />
         </LinearLayout>
-        <TextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Show this QR code to the ticket counter to receive your ticket"
-            android:padding="16dp"
-            android:textColor="@color/black"
-            android:textSize="13sp"
-            />
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="4dp"
+            >
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/popcorn"/>
+
+            <TextView
+                android:id="@+id/tvPopcorn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="@color/black"
+                android:padding="4dp"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                />
+        </LinearLayout>
+
     </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Show this QR code to the ticket counter to receive your ticket"
+        android:textColor="@color/black"
+        android:textSize="13sp"
+        android:layout_alignParentBottom="true"
+        android:paddingBottom="120dp"
+        android:paddingHorizontal="40dp"
+        android:gravity="center"
+        />
 </RelativeLayout>
 
 

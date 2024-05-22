@@ -116,7 +116,7 @@ public class MovieActivity extends AppCompatActivity {
             public void onTabSelected(int position) {
                 switch (position) {
                     case 0:
-                        startActivity(new Intent(MovieActivity.this, MainActivity.class));
+                        startActivity(new Intent(MovieActivity.this, HomePage.class));
                         break;
                     case 1:
                         startActivity(new Intent(MovieActivity.this, MyTicket.class));

@@ -189,9 +189,9 @@
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:src="@drawable/logout_lh"
-                android:tint="@color/white"
                 android:id="@+id/ivLogout"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:tint="@color/white" />
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"

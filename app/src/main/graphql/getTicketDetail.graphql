@@ -4,9 +4,24 @@ query GetTicketDetail($ticketId: ID){
             id
             attributes{
                 total
+                order_items{
+                    data{
+                        attributes{
+                            food_item{
+                                data{
+                                    attributes{
+                                        name
+                                    }
+                                }
+                            }
+                            quantity
+                        }
+                    }
+                }
                 show_time{
                     data{
                         attributes{
+
                             show_time
                             screen{
                                 data{
