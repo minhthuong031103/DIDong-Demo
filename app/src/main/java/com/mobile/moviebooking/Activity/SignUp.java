@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -28,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class SignUp extends AppCompatActivity {
     private MaterialButton btnSignUp;
     private EditText etUsername, etEmail, etPassword;
+    private ImageView back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,10 @@ public class SignUp extends AppCompatActivity {
 
         findView();
         doSignUp();
+
+        back.setOnClickListener(v -> {
+            getOnBackPressedDispatcher().onBackPressed();
+        });
     }
 
     private void doSignUp() {
@@ -102,5 +108,6 @@ public class SignUp extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etPassword = findViewById(R.id.etPassword);
         etUsername = findViewById(R.id.etUserName);
+        back = findViewById(R.id.backBtn);
     }
 }

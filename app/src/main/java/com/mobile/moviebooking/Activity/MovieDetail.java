@@ -87,6 +87,12 @@ public class MovieDetail extends AppCompatActivity {
 
     private void setupEventListener() {
         bookingBtn.setOnClickListener(v -> {
+            if (getSharedPreferences("userInfo", MODE_PRIVATE).getString("jwt", "").equals("")) {
+                Intent intent = new Intent(MovieDetail.this, MainActivity.class);
+                startActivity(intent);
+                return;
+            }
+
             Intent intent = new Intent(MovieDetail.this, SelectShowtime.class);
             startActivity(intent);
 

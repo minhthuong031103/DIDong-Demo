@@ -123,7 +123,9 @@ public class Profile extends AppCompatActivity {
         logOut.setOnClickListener(v->{
             SharedPreferences userInfo = getSharedPreferences("userInfo", MODE_PRIVATE);
             userInfo.edit().clear().apply();
-            startActivity(new Intent(Profile.this, MainActivity.class));
+            Intent intent = new Intent(Profile.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
         });
     }
 

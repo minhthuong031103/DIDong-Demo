@@ -130,7 +130,7 @@ public class HomePage extends AppCompatActivity {
             welcomeText.setVisibility(TextView.VISIBLE);
         } else {
             loginLayout.setOnClickListener(v -> {
-                startActivity(new Intent(HomePage.this, SignIn.class));
+                startActivity(new Intent(HomePage.this, MainActivity.class));
             });
         }
     }

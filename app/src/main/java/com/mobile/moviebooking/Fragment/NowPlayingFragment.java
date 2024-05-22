@@ -108,13 +108,18 @@ public class NowPlayingFragment extends Fragment {
                     //comingMovieList.add(movie);
                 }
 
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        movieAdapter.setData(listMovie);
+                while(true){
+                    if (getActivity() != null){
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                movieAdapter.setData(listMovie);
+                            }
+                        });
+                        break;
                     }
-                });
 
+                }
             }
 
         });

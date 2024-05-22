@@ -52,6 +52,8 @@ public class MovieActivity extends AppCompatActivity {
         frameConfig();
 
         navBar();
+
+
     }
 
     private void loadData() {
@@ -65,6 +67,7 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     private void frameConfig() {
+
         getSupportFragmentManager().beginTransaction().replace(R.id.flMovie, new NowPlayingFragment()).commit();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -90,6 +93,13 @@ public class MovieActivity extends AppCompatActivity {
             public void onTabReselected(TabLayout.Tab tab) {
             }
         });
+        if (getIntent().getStringExtra("title") != null) {
+            if (getIntent().getStringExtra("title").equals("Now Playing")) {
+                tabLayout.getTabAt(0).select();
+            } else {
+                tabLayout.getTabAt(1).select();
+            }
+        }
     }
 
     private void findView() {
