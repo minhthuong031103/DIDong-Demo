@@ -20,6 +20,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.apollographql.apollo3.api.Optional;
 import com.apollographql.apollo3.runtime.java.ApolloClient;
@@ -48,6 +49,16 @@ public class SelectSeat extends AppCompatActivity {
     private int totalPayment = 0;
     private int screenId;
     private int showtimeId;
+    private SwipeRefreshLayout swipeRefreshLayout;
+    private void findViewById() {
+        ctnBtn = findViewById(R.id.btn);
+        backBtn = findViewById(R.id.back);
+        seatsGridView = findViewById(R.id.gv_seat);
+        summaryLayout = findViewById(R.id.summary);
+        total = findViewById(R.id.total);
+        selectedSeats = findViewById(R.id.selectedSeats);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+    }
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,11 +70,17 @@ public class SelectSeat extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        seats = new ArrayList<>();
 
         findViewById();
+        swipeRefreshLayout.setRefreshing(true);
 
         loadSeat();
 
+        setupEventListener();
+    }
+
+    private void setupEventListener() {
         backBtn.setOnClickListener(v -> {
             getOnBackPressedDispatcher().onBackPressed();
         });
@@ -75,15 +92,11 @@ public class SelectSeat extends AppCompatActivity {
             intent.putExtra("totalPayment", totalPayment);
             startActivity(intent);
         });
-    }
 
-    private void findViewById() {
-        ctnBtn = findViewById(R.id.btn);
-        backBtn = findViewById(R.id.back);
-        seatsGridView = findViewById(R.id.gv_seat);
-        summaryLayout = findViewById(R.id.summary);
-        total = findViewById(R.id.total);
-        selectedSeats = findViewById(R.id.selectedSeats);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            swipeRefreshLayout.setRefreshing(true);
+            loadSeat();
+        });
     }
 
     private void setUpSeatView() {
@@ -196,6 +209,7 @@ public class SelectSeat extends AppCompatActivity {
                                 }
                                 runOnUiThread(() -> {
                                     setUpSeatView();
+                                    swipeRefreshLayout.setRefreshing(false);
                                 });
                             });
                 });

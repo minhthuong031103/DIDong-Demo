@@ -17,8 +17,10 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.widget.CompositePageTransformer;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
@@ -56,7 +58,7 @@ public class HomePage extends AppCompatActivity {
     private CircleIndicator3 indicator;
     private SearchView searchView;
     private ConstraintLayout SearchedMovieLayout;
-    private ScrollView scrollView;
+    private NestedScrollView scrollView;
     private TextView notFound;
     private TextView seeAllPlaying;
     private ImageView seeAllPlayingArrow;
@@ -65,7 +67,25 @@ public class HomePage extends AppCompatActivity {
     private ConstraintLayout loginLayout;
     private TextView welcomeText;
     private TextView welcomebackText;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
+    private void findViewById() {
+        viewPager = findViewById(R.id.viewPager2);
+        indicator = findViewById(R.id.indicator);
+        comingMovieRecyclerView = findViewById(R.id.recyclerView);
+        searchView = findViewById(R.id.searchview);
+        SearchedMovieLayout = findViewById(R.id.searched_movie);
+        scrollView = findViewById(R.id.scrollView);
+        notFound = findViewById(R.id.notfound);
+        seeAllComing = findViewById(R.id.seeallcomingsoon);
+        seeAllComingArrow = findViewById(R.id.imgcomingsoon);
+        seeAllPlaying = findViewById(R.id.textView13);
+        seeAllPlayingArrow = findViewById(R.id.imageView10);
+        loginLayout = findViewById(R.id.loginLayout);
+        welcomeText = findViewById(R.id.welcomeText);
+        welcomebackText = findViewById(R.id.textView11);
+        swipeRefreshLayout = findViewById(R.id.swipeRefresh);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +98,7 @@ public class HomePage extends AppCompatActivity {
         });
 
         findViewById();
+        swipeRefreshLayout.setRefreshing(true);
 
         setupViewPager();
 
@@ -90,6 +111,13 @@ public class HomePage extends AppCompatActivity {
         checkIfLoggedIn();
 
         navBar();
+
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            playingMovieList.clear();
+            comingMovieList.clear();
+            loadData();
+            swipeRefreshLayout.setRefreshing(false);
+        });
     }
 
     private void checkIfLoggedIn() {
@@ -253,28 +281,13 @@ public class HomePage extends AppCompatActivity {
                     comingMovieRecyclerView.setLayoutManager(new LinearLayoutManager(HomePage.this, LinearLayoutManager.HORIZONTAL, false));
                     homepageComingMovieAdapter = new HomePageComingMovieAdapter(comingMovieList, HomePage.this);
                     comingMovieRecyclerView.setAdapter(homepageComingMovieAdapter);
+                    swipeRefreshLayout.setRefreshing(false);
                 });
             }
 
         });
     }
 
-    private void findViewById() {
-        viewPager = findViewById(R.id.viewPager2);
-        indicator = findViewById(R.id.indicator);
-        comingMovieRecyclerView = findViewById(R.id.recyclerView);
-        searchView = findViewById(R.id.searchview);
-        SearchedMovieLayout = findViewById(R.id.searched_movie);
-        scrollView = findViewById(R.id.scrollView);
-        notFound = findViewById(R.id.notfound);
-        seeAllComing = findViewById(R.id.seeallcomingsoon);
-        seeAllComingArrow = findViewById(R.id.imgcomingsoon);
-        seeAllPlaying = findViewById(R.id.textView13);
-        seeAllPlayingArrow = findViewById(R.id.imageView10);
-        loginLayout = findViewById(R.id.loginLayout);
-        welcomeText = findViewById(R.id.welcomeText);
-        welcomebackText = findViewById(R.id.textView11);
-    }
 
     private void navBar() {
         BottomNavigationBar bottomNavigationBar = (BottomNavigationBar) findViewById(R.id.bottom_navigation_bar);

@@ -1,6 +1,7 @@
 package com.mobile.moviebooking.Activity;
 
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
@@ -120,6 +121,9 @@ public class Payment extends AppCompatActivity {
                                 Log.d("test", "onCreate: " + response1.data);
                             });
                         }
+                        Intent intent = new Intent(Payment.this, MyTicket.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     });
         });
     }
@@ -186,6 +190,7 @@ public class Payment extends AppCompatActivity {
             setEnableButton();
         });
     }
+
 
     private void setEnableButton() {
         if (paymentMethod != -1) {
