@@ -97,6 +97,10 @@ public class SelectSeat extends AppCompatActivity {
             swipeRefreshLayout.setRefreshing(true);
             loadSeat();
         });
+
+        swipeRefreshLayout.setOnChildScrollUpCallback((parent, child) -> {
+            return seatsGridView.getFirstVisiblePosition() == 0 && seatsGridView.getChildAt(0).getTop() == 0;
+        });
     }
 
     private void setUpSeatView() {
