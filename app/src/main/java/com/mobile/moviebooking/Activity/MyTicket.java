@@ -19,6 +19,7 @@ import com.ashokvarma.bottomnavigation.BottomNavigationBar;
 import com.ashokvarma.bottomnavigation.BottomNavigationItem;
 import com.example.rocketreserver.GetTicketQuery;
 import com.example.rocketreserver.MovieHomaePageQuery;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.mobile.moviebooking.Adapter.HomePageComingMovieAdapter;
 import com.mobile.moviebooking.Adapter.HomePagePlayingMovieAdapter;
@@ -49,6 +50,8 @@ public class MyTicket extends AppCompatActivity {
     private List<Ticket> historyList = new ArrayList<Ticket>();
     private MaterialCardView emptyTicket;
     private MaterialCardView historyTicket;
+
+    private MaterialButton btnBookNow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -250,5 +253,10 @@ public class MyTicket extends AppCompatActivity {
         recyclerView = findViewById(R.id.rvMyTicket);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(ticketAdapter);
+
+        btnBookNow = findViewById(R.id.btnBookNow);
+        btnBookNow.setOnClickListener(v -> {
+            startActivity(new Intent(MyTicket.this, MovieActivity.class));
+        });
     }
 }

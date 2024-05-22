@@ -78,11 +78,11 @@ public class SignIn extends AppCompatActivity {
             apolloClient.mutation(loginMutaion).enqueue(apolloResponse -> {
                 if (apolloResponse.hasErrors()) {
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Sign Up Failed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Sign In Failed", Toast.LENGTH_SHORT).show();
                     });
                 } else {
                     runOnUiThread(() -> {
-                        Toast.makeText(this, "Sign Up Success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, "Sign In Success", Toast.LENGTH_SHORT).show();
 
                         SharedPreferences sharedPreferences = getSharedPreferences("userInfo", MODE_PRIVATE);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
