@@ -7,7 +7,8 @@
     android:layout_height="match_parent"
     android:background="@color/black"
     android:orientation="vertical"
-    tools:context=".Activity.TicketDetail">
+    tools:context=".Activity.TicketDetail"
+    android:theme="@style/Theme.Material3.Dark.NoActionBar">
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -18,9 +19,10 @@
             android:id="@+id/backMyTicket"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/arrow_left"
 
-            android:layout_margin="16dp"/>
+            android:src="@drawable/arrow_left"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -54,13 +56,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            >
+            android:paddingTop="12dp">
             <androidx.cardview.widget.CardView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
                 android:layout_gravity="center"
-               android:layout_marginTop="8dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
                 >
                 <ImageView
@@ -308,17 +310,18 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="2dp"
+        android:gravity="center"
+        android:paddingHorizontal="40dp"
+        android:paddingBottom="120dp"
         android:text="Show this QR code to the ticket counter to receive your ticket"
         android:textColor="@color/black"
-        android:textSize="13sp"
-        android:layout_alignParentBottom="true"
-        android:paddingBottom="120dp"
-        android:paddingHorizontal="40dp"
-        android:gravity="center"
-        />
+        android:textSize="13sp" />
 </RelativeLayout>
 
 
